@@ -8,14 +8,14 @@
     <title>IDEF1X Дизайнер</title>
 
     <!-- Bootstrap -->
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="libraries/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!--Подключение библиотеки jsPlumb -->
-    <script type="text/javascript" src="jsPlumb/jquery-3.1.1.js"></script>
-    <script type="text/javascript" src="jsPlumb/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="jsPlumb/jsplumb.js"></script>
+    <script type="text/javascript" src="libraries/jsPlumb/jquery-3.1.1.js"></script>
+    <script type="text/javascript" src="libraries/jsPlumb/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="libraries/jsPlumb/jsplumb.js"></script>
 
-    <script type="text/javascript" src="FileSaver/FileSaver.js"></script>
+    <script type="text/javascript" src="libraries/FileSaver/FileSaver.js"></script>
 
     <!--Подключение необходимых модулей -->
     <script src="Modules/CreateEntity.js"></script>
@@ -86,7 +86,8 @@
                     onclick="clearElements('Many-to-many');">
                     Многие-ко-многим
                   </button>
-                  <button class="btn btn-link" data-toggle="modal" data-target="#EditRelationship">
+                  <button class="btn btn-link" data-toggle="modal" data-target="#EditRelationship"
+                    onclick="clearElements('EditRelationship');">
                     Редактирование
                   </button>
                 </ul>
@@ -160,15 +161,8 @@
             <div class="modal-body">
               <form>
                 <div class="form-group">
-                    <label for="entity_name">Сущность <span class="badge"></span></label>
-                    <div class="input-group">
-                      <input type="text" class="form-control" aria-label="..." id="EditEntityName"
-                          placeholder="Выберете сущность из списка">
-                      <div class="input-group-btn" id="entity_list_1">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" 
-                        onclick="createEntityList('entity_list_1');"> <span class="caret"></span></button>
-                      </div><!-- /btn-group -->
-                    </div><!-- /input-group -->
+                    <label>Сущность</label>
+                    <select class="form-control" id="EditEntityName"></select>
                 </div>
                 <div class="form-group">
                     <label for="entity_name_2">
@@ -213,41 +207,13 @@
             <div class="modal-body">
               <form>
                 <div class="form-group">
-                    <!--Имя первой сущности-->
-                    <label for="entity_name_connection1" id="entity_name_label1" >Сущность</label>
-                    <!--Кол-во сущностей в репозитории-->
-                    <span class="badge">2</span>
-                    <div class="input-group">
-                      <input type="text" class="form-control" aria-label="..." id="entity_name_connection1"
-                          placeholder="Выберете сущность из списка">
-                      <div class="input-group-btn" id="manytomanyentitylist1">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                            onclick="createEntityListForConnection(
-                                $('#entity_name_connection1'),
-                                $('#manytomanyentitylist1'));"> 
-                        <span class="caret"></span>
-                        </button>
-                      </div><!-- /btn-group -->
-                    </div><!-- /input-group -->
+                    <label>Сущность</label>
+                    <select class="form-control" id="EntityName1"></select>
                 </div>
+
                 <div class="form-group">
-                    <!--Имя второй сущности-->
-                    <label for="entity_name_connection2" id="entity_name_label2">Сущность</label>
-                    <!--Кол-во сущностей в репозитории--> 
-                    <span class="badge" ata-toggle="tooltip">2</span>
-                    <div class="input-group">
-                      <input type="text" class="form-control" aria-label="..." id="entity_name_connection2"
-                          placeholder="Выберете сущность из списка">
-                      <div class="input-group-btn" id="manytomanyentitylist2">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                            onclick="createEntityListForConnection(
-                                $('#entity_name_connection2'),
-                                $('#manytomanyentitylist2')
-                            )"> 
-                        <span class="caret"></span>
-                        </button>
-                      </div><!-- /btn-group -->
-                    </div><!-- /input-group -->
+                    <label>Сущность</label>
+                    <select class="form-control" id="EntityName2"></select>
                 </div>
 
                 <div class="form-group">
@@ -267,7 +233,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-primary" data-dismiss="modal" 
-                onclick="createConnection($('#entity_name_connection1').val(), $('#entity_name_connection2').val(),
+                onclick="createConnection($('#EntityName1').val(), $('#EntityName2').val(),
                     $('#Many-to-many_label').val(), 'ManyToMany', $('#Many-to-many_Description').val());">
                 Создать
               </button>
@@ -290,41 +256,15 @@
             </div>
             <div class="modal-body">
               <form>
+
                 <div class="form-group">
-                    <!--Имя первой сущности-->
-                    <label for="entity_name_connection3">Сущность-родитель</label>
-                    <!--Кол-во сущностей в репозитории-->
-                    <span class="badge"></span>
-                    <div class="input-group">
-                      <input type="text" class="form-control" aria-label="..." id="entity_name_connection3"
-                          placeholder="Выберете сущность из списка">
-                      <div class="input-group-btn" id="OneToManyEntityList1">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                        onclick="createEntityListForConnection(
-                                $('#entity_name_connection3'),
-                                $('#OneToManyEntityList1'));"> 
-                        <span class="caret"></span>
-                        </button>
-                      </div><!-- /btn-group -->
-                    </div><!-- /input-group -->
+                    <label>Сущность-родитель</label>
+                    <select class="form-control" id="ParentEntityName"></select>
                 </div>
+
                 <div class="form-group">
-                    <!--Имя второй сущности-->
-                    <label for="entity_name_connection4" id="entity_name_label2">Сущность-потомок</label>
-                    <!--Кол-во сущностей в репозитории--> 
-                    <span class="badge" ata-toggle="tooltip">2</span>
-                    <div class="input-group">
-                      <input type="text" class="form-control" aria-label="..." id="entity_name_connection4"
-                          placeholder="Выберете сущность из списка">
-                      <div class="input-group-btn" id="OneToManyEntityList2">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                        onclick="createEntityListForConnection(
-                                $('#entity_name_connection4'),
-                                $('#OneToManyEntityList2'));"> 
-                        <span class="caret"></span>
-                        </button>
-                      </div><!-- /btn-group -->
-                    </div><!-- /input-group -->
+                    <label>Сущность-потомок</label>
+                    <select class="form-control" id="ChildEntityName"></select>
                 </div>
 
                 <div class="form-group">
@@ -342,9 +282,10 @@
 
               </form>
             </div>
+
             <div class="modal-footer">
               <button type="button" class="btn btn-primary" data-dismiss="modal" 
-                onclick="createConnection($('#entity_name_connection3').val(), $('#entity_name_connection4').val(),
+                onclick="createConnection($('#ParentEntityName').val(), $('#ChildEntityName').val(),
                     $('#verb_phrase').val(), 'OneToMany', $('#One-to-many_Description').val());">
                 Создать
               </button>
@@ -388,59 +329,38 @@
                 <h4 class="modal-title">Редактирование связей</h4>
             </div>
             <div class="modal-body">
-            <form>
-                <div class="form-group">
-                    <!--Название связи-->
-                    <label for="connection_name">Имя связи</label>
-                    <!--Список названий связей-->
-                    <span class="badge"></span>
-                    <div class="input-group">
-                        <input type="text" class="form-control" id="connection_name"
-                            placeholder="Выберете имя связи из списка">
-                        <div class="input-group-btn" id="ConnectionNameList1">
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                onclick="getConnectionNames(
-                                    $('#connection_name'),
-                                    $('#ConnectionNameList1'));"> 
-                            <span class="caret"></span>
-                            </button>
-                      </div><!-- /btn-group -->
-                    </div><!-- /input-group -->
-                </div>
-                <div class="form-group">
-                    <!--Имя первой сущности-->
-                    <label for="entity_name_connection5">Сущность-родитель</label>
-                    <!--Кол-во сущностей в репозитории-->
-                    <span class="badge">2</span>
-                    <!--Список сущностей-->
-                    <input type="text" class="form-control" aria-label="..." id="entity_name_connection5"
+              <form>
+                  <div class="form-group">
+                    <label>Имя связи</label>
+                    <select class="form-control" id="connection_name"></select>
+                  </div>
+
+                  <div class="form-group">
+                      <label for="entity_name_connection5">Сущность-родитель</label>
+                      <input type="text" class="form-control" aria-label="..." id="entity_name_connection5"
+                              placeholder="Выберете сущность из списка">
+                  </div>
+                  <div class="form-group">
+                      <label for="entity_name_connection6">Сущность-потомок</label>
+                      <input type="text" class="form-control" aria-label="..." id="entity_name_connection6"
                             placeholder="Выберете сущность из списка">
-                </div>
-                <div class="form-group">
-                    <!--Имя второй сущности-->
-                    <label for="entity_name_connection6">Сущность-потомок</label>
-                    <!--Кол-во сущностей в репозитории--> 
-                    <span class="badge" ata-toggle="tooltip">2</span>
-                    <!--Список сущностей-->
-                    <input type="text" class="form-control" aria-label="..." id="entity_name_connection6"
-                          placeholder="Выберете сущность из списка">
-                </div>
+                  </div>
 
-                <div class="form-group">
-                    <label>
-                        Глагольная фраза
-                    </label>
-                    <input type="text" class="form-control" id="verb_phrase_con" placeholder="Глагольная фраза">
-                </div>
+                  <div class="form-group">
+                      <label>
+                          Глагольная фраза
+                      </label>
+                      <input type="text" class="form-control" id="verb_phrase_con" placeholder="Глагольная фраза">
+                  </div>
 
-                <div class="form-group">
-                    <label for="Many-to-many_Description">Описание</label>
-                    <textarea class="form-control" rows="5" id="ConDescription" 
-                        placeholder="Описание связи">
-                    </textarea>
-                </div>
+                  <div class="form-group">
+                      <label for="Many-to-many_Description">Описание</label>
+                      <textarea class="form-control" rows="5" id="ConDescription" 
+                          placeholder="Описание связи">
+                      </textarea>
+                  </div>
+              </form>
 
-            </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal"
@@ -521,8 +441,8 @@
     </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="bootstrap/js/jquery.min.js"></script>
+    <script src="libraries/bootstrap/js/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="libraries/bootstrap/js/bootstrap.min.js"></script>
   </body>
 </html>

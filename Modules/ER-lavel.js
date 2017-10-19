@@ -105,103 +105,61 @@ function EditName(EntityName){
     document.getElementById('EditEntityName').value = EntityName;
 }
 
-/*Создание списка имён сущностей из репозитория*/
-/*
-function createEntityList(element_id){
-
-          $('#' + element_id).children('ul').remove();
-          
-          var entity_list = $('<ul></ul>').addClass("dropdown-menu dropdown-menu-right");
-          var str;
-          var list_element;
-          var name;
-
-          for(var i=1; i<=_Repository.list_ent._length; i++){
-
-            str=_Repository.list_ent.searchNodeAt(i).Get_ID();
-            name = _Repository.list_ent.searchNodeAt(i).name;
-            
-            list_element = $('<li></li>').append(
-                $('<a href="#"></a>').attr('id', i).text(str + " - " + name).click(
-                  function(){
-                    
-                    $('#EditEntityName').val("Entity" + $(this).attr('id'));
-                    var id_value=$(this).attr('id');
-                    $('#entity_name_2').val(_Repository.list_ent.searchNodeAt(id_value).name);
-                    $('#EditDescriptionEntity').val(_Repository.list_ent.searchNodeAt(id_value).description);
-                    
-                    $('#keys').empty();
-
-                    var x =_Repository.list_ent.searchEntityById($(this).attr('data-EntityID')).atr_lynks;
-                    for (var i = 0; i < x.length;  i++)
-                    {
-                      $('#keys').append($('<option></option>').text(x[i].name).attr('value', x[i].id));
-                    }
-                console.log('click ' + x);
-                })).appendTo(entity_list);
-          }
-
-          entity_list.appendTo($('#' + element_id));
-          console.log($('#' + element_id));
-}
-*/
-
 function createEntityList(){
     var str, name;
-    for(var i=1; i<=_Repository.list_ent._length; i++){
+
+    for(var i=1; i<=_Repository.list_ent._length; i++)
+    {
+      str=_Repository.list_ent.searchNodeAt(i).Get_ID();
+      name = _Repository.list_ent.searchNodeAt(i).name;
+      
+      $('#EntityName').append($('<option></option>').attr('value', str).text(name));
+    }
+
+    $('#EntityName').change(function(){
+      $('#keys').empty();
+
+      var x =_Repository.list_ent.searchEntityById($(this).val()).atr_lynks;
+
+      for (var i = 0; i < x.length;  i++)
+      {
+        $('#keys').append($('<option></option>').attr('value', x[i].id).text(
+            x[i].name + " (" + x[i].type + ")"));
+      }
+
+      $("#CreateAttribute").prop("disabled", false);
+      $("#DeleteAttribute").prop("disabled", false);
+    });
+}
+
+function createEntityListForConnection(list){
+
+      var str, name;
+
+      for(var i=1; i<=_Repository.list_ent._length; i++)
+      {
         str=_Repository.list_ent.searchNodeAt(i).Get_ID();
         name = _Repository.list_ent.searchNodeAt(i).name;
         
-        $('#EntityName').append($('<option></option>').attr('value', str).text(name));
-          /*
-          .on("click",
-            function(){
-                $('#keys').empty();
-
-                var x =_Repository.list_ent.searchEntityById($(this).val()).atr_lynks;
-                for (var i = 0; i < x.length;  i++)
-                {
-                  $('#keys').append($('<option></option>').attr('value', x[i].id).text(x[i].name));
-                }
-                console.log(this);
-            }
-          ));
-          */
-        }
-
-        $('#EntityName').change(function(){
-          $('#keys').empty();
-          var x =_Repository.list_ent.searchEntityById($(this).val()).atr_lynks;
-          for (var i = 0; i < x.length;  i++)
-          {
-            $('#keys').append($('<option></option>').attr('value', x[i].id).text(
-              x[i].name + " (" + x[i].type + ")"));
-          }
-          $("#CreateAttribute").prop("disabled", false);
-          $("#DeleteAttribute").prop("disabled", false);
-          //
-        });
+        list.append($('<option></option>').attr('value', str).text(name + ' - ' + str));
+      }
 }
 
-function createEntityListForConnection(input, entity_list){
+function createEntityListER(){
+      var str, name;
 
-            $(entity_list).children('ul').remove();
-          
-            var list = $('<ul></ul>').addClass("dropdown-menu dropdown-menu-right");
-            var list_element;
-            console.log(entity_list);
-            var name;
+      for(var i=1; i<=_Repository.list_ent._length; i++)
+      {
+        str=_Repository.list_ent.searchNodeAt(i).Get_ID();
+        name = _Repository.list_ent.searchNodeAt(i).name;
+        
+        $('#EditEntityName').append($('<option></option>').attr('value', str).text(str));
+      }
 
-            for(var i=1; i<=_Repository.list_ent._length; i++){
-                str=_Repository.list_ent.searchNodeAt(i).Get_ID();
-                name = _Repository.list_ent.searchNodeAt(i).name;
-                list_element = $('<li></li>').append(
-                    $('<a href="#"></a>').attr('id', i).text(str + " - " + name).click(
-                      function(){
-                        $(input).val("Entity" + $(this).attr('id'));
-                })).appendTo(list);
-            }
-            list.appendTo(entity_list);
+      $('#EditEntityName').change(function(){
+          $('#entity_name_2').val(_Repository.list_ent.searchEntityById($(this).val()).name);
+          $('#EditDescriptionEntity').val(_Repository.list_ent.searchEntityById($(this).val()).description);
+      });
 }
 
 function clearElements(ModalWindow){
@@ -209,28 +167,48 @@ function clearElements(ModalWindow){
             Параметр ModalWindow - имя модального окна, в котором будут отчищаться значения полей.
           */
         switch (ModalWindow){
+            case "EditRelationship":
+                    $('#connection_name').empty();
+                    $('#entity_name_connection5').val('');
+                    $('#entity_name_connection6').val('');
+                    $('#verb_phrase_con').val('');
+                    $('ConDescription').val('');
+                    getConnectionNames($('#connection_name'));
+                    $('#connection_name').val('');
+                break;
             case "myModal":
                     $('#entity_name').val('');
                     $('#DescriptionEntity').val('');
                     $('#entity_name').focus();
                 break;
             case "EditModal":
+                    $('#EditEntityName').empty();
+                    createEntityListER();
                     $('#EditEntityName').val('');
                     $('#entity_name_2').val('');
                     $('#EditDescriptionEntity').val('');
                     $('#EditEntityName').focus();
                 break;
             case "Many-to-many":
-                    $('#entity_name_connection1').val('');
-                    $('#entity_name_connection2').val('');
                     $('#Many-to-many_label').val('');
                     $('#Many-to-many_Description').val('');
+                    $('#EntityName1').empty();
+                    $('#EntityName2').empty();
+                    $('#Many-to-many_Description').val('');
+                    createEntityListForConnection($('#EntityName1'));
+                    createEntityListForConnection($('#EntityName2'));
+                    $('#EntityName1').val('');
+                    $('#EntityName2').val('');
                 break;
             case "One-to-many":
-                    $('#entity_name_connection3').val('');
-                    $('#entity_name_connection4').val('');
+                    $('#ParentEntityName').empty();
+                    $('#ChildEntityName').empty();
                     $('#verb_phrase').val('');
                     $('#One-to-many_Description').val('');
+                    createEntityListForConnection($('#ParentEntityName'));
+                    createEntityListForConnection($('#ChildEntityName'));
+                    $('#ParentEntityName').val('');
+                    $('#ChildEntityName').val('');
                 break;
             case "KeysModal":
                     $("#EditEntityName").val('');
@@ -250,8 +228,33 @@ function clearElements(ModalWindow){
           $('.badge').text(''); $('.badge').text(_Repository.list_ent._length);
 }
 
-function getConnectionNames(input, entity_list){
+function getConnectionNames(list){
 
+        var str, name;
+
+        for(var i=1; i<=_Repository.list_rel._length; i++)
+        {
+          str=_Repository.list_rel.searchNodeAt(i).Get_ID();
+          list.append($('<option></option>').attr('value', str).text(str));
+        }
+
+        list.change(function(){
+
+          var parent_name =_Repository.list_ent.searchEntityById(
+                        _Repository.list_rel.searchEntityById($(this).val())._parent_id).picture_id;
+          var child_name = _Repository.list_ent.searchEntityById(
+            _Repository.list_rel.searchEntityById($(this).val())._child_id).picture_id;
+          var phrase = _Repository.list_rel.searchEntityById($(this).val()).Get_Phrase();
+          var rel_description = _Repository.list_rel.searchEntityById($(this).val()).description;
+          
+          $('#entity_name_connection5').val(parent_name);
+          $('#entity_name_connection6').val(child_name);
+          $('#verb_phrase_con').val(phrase);
+          $('#ConDescription').val(rel_description);
+
+        });
+
+          /*
             $(entity_list).children('ul').remove();
           
             var list = $('<ul></ul>').addClass("dropdown-menu dropdown-menu-right");
@@ -280,5 +283,6 @@ function getConnectionNames(input, entity_list){
                 })).appendTo(list);
             }
             list.appendTo(entity_list);
+            */
 }
 

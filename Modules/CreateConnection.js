@@ -3,7 +3,7 @@ var ConnectionCounter = 0;
 function createConnection(source_n, target_n, verb_phrase, type, description){
 
     var jsPlumbConn;
-
+    console.log("createConnection : ", source_n, target_n);
     _Repository.Add_Relationship(description, source_n, target_n, type, verb_phrase, null);
     ConnectionCounter++;
 
