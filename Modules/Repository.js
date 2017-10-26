@@ -155,7 +155,7 @@ Entity.prototype.Get_ID = function () {
     return this.picture_id;
 }
 
-function Attributes(name, entId, type, domain) {
+function Attributes(name, entId, type, domain, descp) {
     //Ид атрибута
     this.id = Attributes.counter++;
     //Ид владельца атрибута
@@ -166,6 +166,8 @@ function Attributes(name, entId, type, domain) {
     this.name = name;
     //Домен атр
     this.domainName = domain;
+
+    this.description = descp;
 }
 Attributes.counter = 0;
 Attributes.prototype.Get_ID = function () {
@@ -262,14 +264,14 @@ Repository.prototype.Add_Entity = function (name, type, description, pictureId) 
 /*
 Функция добавления Атрибута
 */
-Repository.prototype.Add_Attribute = function (name, idEnt, type, domainName) {
+Repository.prototype.Add_Attribute = function (name, idEnt, type, domainName,description) {
 
 
     //Сущность к которой добавляется Атрибут
     var curEntity = this.list_ent.searchEntityById(idEnt);
 
     //Ссылка на созданный объект Атрибут
-    var linkAtr = this.list_atr.add(new Attributes(name, idEnt, type, domainName)).data;
+    var linkAtr = this.list_atr.add(new Attributes(name, idEnt, type, domainName,description)).data;
 
     curEntity.atr_lynks.push(linkAtr);
 
@@ -300,23 +302,23 @@ Repository.prototype.Delete_Attribute = function (idAtr) {
 
     var i;
     //Удаление атрибута из сущностей у которых есть связи с текущей
-    for (i = 0; i < ownerEnt.atr_lynks.length; i++) {
+    /*for (i = 0; i < ownerEnt.atr_lynks.length; i++) {
         for (var j = 1; j < this.list_ent._length; j++) {
             if (ownerEnt.atr_lynks[i] != null) {
                 for (var k = 0; k < this.list_ent.searchNodeAt(j + 1).atr_lynks.length; k++) {
                     if (this.list_ent.searchNodeAt(j + 1).atr_lynks[k] != null) {
-                        if (ownerEnt.atr_lynks[i].id === this.list_ent.searchNodeAt(j + 1).atr_lynks[k].id && ownerEnt.atr_lynks[i].id === idAtr)
+                        if (ownerEnt.atr_lynks[i].id == this.list_ent.searchNodeAt(j + 1).atr_lynks[k].id && ownerEnt.atr_lynks[i].id == idAtr)
                             this.list_ent.searchNodeAt(j + 1).atr_lynks[k] = null;
                     }
                 }
 
             }
         }
-    }
+    }*/
     for (i = 0; i < ownerEnt.atr_lynks.length; i++) {
 
         if (ownerEnt.atr_lynks[i] != null) {
-            if (ownerEnt.atr_lynks[i].id === idAtr)
+            if (ownerEnt.atr_lynks[i].id == idAtr)
                 ownerEnt.atr_lynks[i] = null;
         }
     }

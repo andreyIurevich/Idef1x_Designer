@@ -24,6 +24,7 @@
             <script type="text/javascript" src="Modules/Initialize_Repository.js"></script>
             <script src="Modules/CreateEntity.js"></script>
             <script src="Modules/ER-lavel.js"></script>
+            <script src="Modules/KB-lavel.js"></script>
 
             <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
             <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -190,10 +191,13 @@
                                 <button type="button" class="btn btn-primary btn-xs" id="CreateAttribute"
                                 onclick="
                                 $('#keys').append('<option selected>New key</option>');
+                                $('#KeyName').val('');
+                                $('#KeyDescription').val('');
                                 $('#KeyName').focus();
                                 $('#SaveAttribute').prop('disabled', false);
                                 ">Добавить</button>
-                                <button type="button" class="btn btn-default btn-xs" id="DeleteAttribute">Удалить</button>
+                                <button type="button" class="btn btn-default btn-xs" id="DeleteAttribute"
+                                    onclick="deleteAttribute();">Удалить</button>
                             </div>
                         </form>
                     </div>
@@ -208,11 +212,11 @@
                             <div class="form-group">
                                 <label>Тип данных</label>
                                 <select class="form-control" id="DataType">
-                                    <option>Целое</option>
-                                    <option>Вещественное</option>
-                                    <option>Текст</option>
-                                    <option>Дата</option>
-                                    <option>Время</option>
+                                    <option value="int">Целое</option>
+                                    <option value="float">Вещественное</option>
+                                    <option value="text">Текст</option>
+                                    <option value="data">Дата</option>
+                                    <option value="time">Время</option>
                                 </select>
                             </div>
                             <div class="form-group">

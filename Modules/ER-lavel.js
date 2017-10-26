@@ -11,7 +11,7 @@ function Validation(ModalWindow){
                     AddEntity($('#entity_name').val(), 
                                 $('#DescriptionEntity').val(),
                                 $("input[name='lavel']").val(),
-                                20, 20);
+                                80, 80);
                     $('#myModal').modal("hide");
                   }else{
                     if (Entity_name_length == 0){
@@ -55,6 +55,7 @@ function Validation(ModalWindow){
                   var EntityID = $('#EntityName').val();
                   var KeyName = $('#KeyName').val();
                   var DataType = $('#DataType').val();
+                  console.log(DataType);
                   var KeyType = $('#KeyType').val();
                   var KeyDescription = $('#KeyDescription').val();
 
@@ -66,7 +67,7 @@ function Validation(ModalWindow){
                       KeyDescription.length > 0
                       )
                   {
-                    var AttributeID = _Repository.Add_Attribute(KeyName, EntityID, KeyType, DataType);
+                    var AttributeID = _Repository.Add_Attribute(KeyName, EntityID, KeyType, DataType, KeyDescription);
 
                     var EntityKeys = $("#keys" + EntityID);
                     var EntityAttr = $("#attributes" + EntityID);
@@ -78,9 +79,11 @@ function Validation(ModalWindow){
                     var x =_Repository.list_ent.searchEntityById(EntityID).atr_lynks;
                     for (var i = 0; i < x.length;  i++)
                     {
+                      if(x[i]!=null){
                       $('#keys').append($('<option></option>').attr('value', x[i].id).text(
                           x[i].name + " (" + x[i].type + ")"));
-                      var element = $("<div></div>", {class: "attribute"}).text(x[i].name);
+                      var element = $("<div></div>", {class: "attribute"}).attr('data-repositoryId', x[i].id).text(x[i].name);
+
                       if (x[i].type == "PK")
                       {
                         element.appendTo(EntityKeys);
@@ -89,6 +92,7 @@ function Validation(ModalWindow){
                       {
                         element.appendTo(EntityAttr);
                       }
+                    }
                     }
 
                     $('#KeyName').val('');
@@ -103,33 +107,6 @@ function Validation(ModalWindow){
 /* Выбор имени сущности. Для окна редактирования сущности.*/
 function EditName(EntityName){
     document.getElementById('EditEntityName').value = EntityName;
-}
-
-function createEntityList(){
-    var str, name;
-
-    for(var i=1; i<=_Repository.list_ent._length; i++)
-    {
-      str=_Repository.list_ent.searchNodeAt(i).Get_ID();
-      name = _Repository.list_ent.searchNodeAt(i).name;
-      
-      $('#EntityName').append($('<option></option>').attr('value', str).text(name));
-    }
-
-    $('#EntityName').change(function(){
-      $('#keys').empty();
-
-      var x =_Repository.list_ent.searchEntityById($(this).val()).atr_lynks;
-
-      for (var i = 0; i < x.length;  i++)
-      {
-        $('#keys').append($('<option></option>').attr('value', x[i].id).text(
-            x[i].name + " (" + x[i].type + ")"));
-      }
-
-      $("#CreateAttribute").prop("disabled", false);
-      $("#DeleteAttribute").prop("disabled", false);
-    });
 }
 
 function createEntityListForConnection(list){

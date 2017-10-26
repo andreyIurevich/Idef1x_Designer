@@ -43,6 +43,7 @@ function AddEntity(EntityName, Description, Lavel, positionX, positionY){
             var Name = $('<div></div>').css({"padding": "1px"}).text(EntityName).appendTo(Entity);
 
             Keys = $('<div></div>', {id: "keys" + entityID}).css({
+                "min-height": "20px",
                 "flex-grow": 1,
                 "display": "flex",
                 "flex-direction": "column",
