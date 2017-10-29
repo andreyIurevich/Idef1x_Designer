@@ -40,7 +40,7 @@ function AddEntity(EntityName, Description, Lavel, positionX, positionY){
         }).appendTo(Entity);
     }
     else if(Lavel == "KB"){
-            var Name = $('<div></div>').css({"padding": "1px"}).text(EntityName).appendTo(Entity);
+            var Name = $('<div></div>').css({"padding": "1px"}).attr('data', 'name').text(EntityName).appendTo(Entity);
 
             Keys = $('<div></div>', {id: "keys" + entityID}).css({
                 "min-height": "20px",
