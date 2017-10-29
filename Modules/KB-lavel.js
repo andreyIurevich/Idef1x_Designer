@@ -69,5 +69,6 @@ function createEntityList(){
         $('#DataType option[value=' + AttributeDomain + ']').prop('selected', true);
         $('#KeyType option[value=' + AttributeType + ']').prop('selected', true);
         $('#KeyDescription').val(AttributeDescription);
+        $("#SaveAttribute").prop("disabled", false);
     });
 }
