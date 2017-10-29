@@ -160,24 +160,10 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-6 col-md-offset-3">
-                        <!--
-                        <div class="form-group">
-                            <div class="input-group">
-                              <input type="text" class="form-control" aria-label="..." id="EditEntityName"
-                                  placeholder="Выберете сущность из списка">
-                              <div class="input-group-btn" id="entity_list_1">
-                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" 
-                                onclick="createEntityList('entity_list_1');"> <span class="caret"></span></button>
-                              </div>
-                            </div>
-                        </div>
-                        -->
-                        
                         <div class="form-group">
                             <label>Сущность</label>
                             <select class="form-control" id="EntityName"></select>
                         </div>
-                        
                     </div>
                 </div>
                 <div class="row">
@@ -190,12 +176,12 @@
                             <div class="form-group">
                                 <button type="button" class="btn btn-primary btn-xs" id="CreateAttribute"
                                 onclick="
-                                $('#keys').append('<option selected>New key</option>');
-                                $('#KeyName').val('');
-                                $('#KeyDescription').val('');
-                                $('#KeyName').focus();
-                                $('#SaveAttribute').prop('disabled', false);
-                                ">Добавить</button>
+                                        $('#keys').append('<option selected>New key</option>');
+                                        $('#KeyName').val('');
+                                        $('#KeyDescription').val('');
+                                        $('#KeyName').focus();
+                                        $('#SaveAttribute').prop('disabled', false);
+                                    ">Добавить</button>
                                 <button type="button" class="btn btn-default btn-xs" id="DeleteAttribute"
                                     onclick="deleteAttribute();">Удалить</button>
                             </div>
