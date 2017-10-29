@@ -67,7 +67,13 @@ function Validation(ModalWindow){
                       KeyDescription.length > 0
                       )
                   {
-                    var AttributeID = _Repository.Add_Attribute(KeyName, EntityID, KeyType, DataType, KeyDescription);
+                    var AttributeID;
+
+                    if ($('#keys').val() == "New key")
+                      AttributeID = _Repository.Add_Attribute(KeyName, EntityID, KeyType, DataType, KeyDescription);
+                    else
+                      if (_Repository.list_atr.searchEntityById($('#keys').val()) != null)
+                        _Repository.Edit_Attribute($('#keys').val(), KeyName, KeyType, DataType, KeyDescription);
 
                     var EntityKeys = $("#keys" + EntityID);
                     var EntityAttr = $("#attributes" + EntityID);

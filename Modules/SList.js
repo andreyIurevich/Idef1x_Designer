@@ -57,14 +57,17 @@ SinglyList.prototype.searchEntityById = function (ent_id) {
         if (length === 0) {
             throw new Error(message.failure);
         }
-        
-        while (count < length) {
-        	if(currentNode.data.Get_ID()==ent_id)
-        	break;
+        while (count <= length) {
+            if (currentNode.data.Get_ID()==ent_id)
+                break;
         else
+            if(count == length){
+                return null;
+            }
             currentNode = currentNode.next;
             count++;
         }
+
         return currentNode.data;
             };
 SinglyList.prototype.remove = function (id) {

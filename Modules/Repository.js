@@ -137,17 +137,17 @@ var IDEN_REL = 'Identificate';
 var NON_IDEN_REL = 'Non-identificate';
 
 function Entity(name, type, description) {
-    //Ид объекта
+    //Г€Г¤ Г®ГЎГєГҐГЄГІГ 
     this.id = Entity.counter++;
-    //Имя сущности
+    //Г€Г¬Гї Г±ГіГ№Г­Г®Г±ГІГЁ
     this.name = name;
-    //Ид графич. объекта
+    //Г€Г¤ ГЈГ°Г ГґГЁГ·. Г®ГЎГєГҐГЄГІГ 
     this.picture_id = "Entity" + this.id;
-    //Тип сущности
+    //Г’ГЁГЇ Г±ГіГ№Г­Г®Г±ГІГЁ
     this.type = type;
-    //Описание сущности
+    //ГЋГЇГЁГ±Г Г­ГЁГҐ Г±ГіГ№Г­Г®Г±ГІГЁ
     this.description = description;
-    //Массив ссылок на атрибуты сущности
+    //ГЊГ Г±Г±ГЁГў Г±Г±Г»Г«Г®ГЄ Г­Г  Г ГІГ°ГЁГЎГіГІГ» Г±ГіГ№Г­Г®Г±ГІГЁ
     this.atr_lynks = [];
 }
 Entity.counter = 0;
@@ -156,15 +156,15 @@ Entity.prototype.Get_ID = function () {
 }
 
 function Attributes(name, entId, type, domain, descp) {
-    //Ид атрибута
+    //Г€Г¤ Г ГІГ°ГЁГЎГіГІГ 
     this.id = Attributes.counter++;
-    //Ид владельца атрибута
+    //Г€Г¤ ГўГ«Г Г¤ГҐГ«ГјГ¶Г  Г ГІГ°ГЁГЎГіГІГ 
     this._owner_id = entId;
-    //Тип атрибута (PK,FK,AK)
+    //Г’ГЁГЇ Г ГІГ°ГЁГЎГіГІГ  (PK,FK,AK)
     this.type = type;
-    //Имя атрибута
+    //Г€Г¬Гї Г ГІГ°ГЁГЎГіГІГ 
     this.name = name;
-    //Домен атр
+    //Г„Г®Г¬ГҐГ­ Г ГІГ°
     this.domainName = domain;
 
     this.description = descp;
@@ -175,19 +175,19 @@ Attributes.prototype.Get_ID = function () {
 }
 Relationship.counter = 0;
 function Relationship(description, parentId, childId, type, phrase, conn) {
-    //Ид связи
+    //Г€Г¤ Г±ГўГїГ§ГЁ
     this._id = "R" + Relationship.counter++;
-    //Описание связи
+    //ГЋГЇГЁГ±Г Г­ГЁГҐ Г±ГўГїГ§ГЁ
     this.description = description;
-    //Ид род. сущности
+    //Г€Г¤ Г°Г®Г¤. Г±ГіГ№Г­Г®Г±ГІГЁ
     this._parent_id = parentId;
-    //Ид доч. сущности
+    //Г€Г¤ Г¤Г®Г·. Г±ГіГ№Г­Г®Г±ГІГЁ
     this._child_id = childId;
-    //Тип связи
+    //Г’ГЁГЇ Г±ГўГїГ§ГЁ
     this.type = type;
-    //Глагольная фраза
+    //ГѓГ«Г ГЈГ®Г«ГјГ­Г Гї ГґГ°Г Г§Г 
     this.phrase = phrase;
-    //Объект Jsplumb
+    //ГЋГЎГєГҐГЄГІ Jsplumb
     this.jsPlumbConn = conn;
 }
 
@@ -209,13 +209,13 @@ Relationship.prototype.Get_Description = function () {
 }
 
 function KeyGroup(nameKg, entId, typeKg) {
-    //Ид группы
+    //Г€Г¤ ГЈГ°ГіГЇГЇГ»
     this.id = KeyGroup.counter++;
-    //Имя группы
+    //Г€Г¬Гї ГЈГ°ГіГЇГЇГ»
     this.name_kg = nameKg;
-    //Ид владельца группы
+    //Г€Г¤ ГўГ«Г Г¤ГҐГ«ГјГ¶Г  ГЈГ°ГіГЇГЇГ»
     this.ent_id = entId;
-    //Тип группы
+    //Г’ГЁГЇ ГЈГ°ГіГЇГЇГ»
     this.type_kg = typeKg;
 }
 KeyGroup.prototype.Get_ID = function () {
@@ -223,11 +223,11 @@ KeyGroup.prototype.Get_ID = function () {
 }
 KeyGroup.counter = 0;
 function Component(nameKg, attributeId) {
-    //Ид компонента
+    //Г€Г¤ ГЄГ®Г¬ГЇГ®Г­ГҐГ­ГІГ 
     this.id = Component.counter++;
-    //Имя группы в которую входит атрибут
+    //Г€Г¬Гї ГЈГ°ГіГЇГЇГ» Гў ГЄГ®ГІГ®Г°ГіГѕ ГўГµГ®Г¤ГЁГІ Г ГІГ°ГЁГЎГіГІ
     this.name_kg = nameKg;
-    //Ид атрибута
+    //Г€Г¤ Г ГІГ°ГЁГЎГіГІГ 
     this.atr_id = attributeId;
 }
 Component.prototype.Get_ID = function () {
@@ -244,39 +244,39 @@ function Domain(datatype,limit){
 Domain.counter = 0;
 
 function Repository() {
-    //Список сущностей
+    //Г‘ГЇГЁГ±Г®ГЄ Г±ГіГ№Г­Г®Г±ГІГҐГ©
     this.list_ent = new SinglyList();
-    //Список атрибутов
+    //Г‘ГЇГЁГ±Г®ГЄ Г ГІГ°ГЁГЎГіГІГ®Гў
     this.list_atr = new SinglyList();
-    //Список свзяей
+    //Г‘ГЇГЁГ±Г®ГЄ Г±ГўГ§ГїГҐГ©
     this.list_rel = new SinglyList();
-    //Список компонентов
+    //Г‘ГЇГЁГ±Г®ГЄ ГЄГ®Г¬ГЇГ®Г­ГҐГ­ГІГ®Гў
     this.list_comp = new SinglyList();
-    //Список групп
+    //Г‘ГЇГЁГ±Г®ГЄ ГЈГ°ГіГЇГЇ
     this.list_keygroup = new SinglyList();
 };
 /*
-Функция добавления Сущности
+Г”ГіГ­ГЄГ¶ГЁГї Г¤Г®ГЎГ ГўГ«ГҐГ­ГЁГї Г‘ГіГ№Г­Г®Г±ГІГЁ
 */
 Repository.prototype.Add_Entity = function (name, type, description, pictureId) {
    return this.list_ent.add(new Entity(name, type, description, pictureId)).data.id;
 };
 /*
-Функция добавления Атрибута
+Г”ГіГ­ГЄГ¶ГЁГї Г¤Г®ГЎГ ГўГ«ГҐГ­ГЁГї ГЂГІГ°ГЁГЎГіГІГ 
 */
 Repository.prototype.Add_Attribute = function (name, idEnt, type, domainName,description) {
 
 
-    //Сущность к которой добавляется Атрибут
+    //Г‘ГіГ№Г­Г®Г±ГІГј ГЄ ГЄГ®ГІГ®Г°Г®Г© Г¤Г®ГЎГ ГўГ«ГїГҐГІГ±Гї ГЂГІГ°ГЁГЎГіГІ
     var curEntity = this.list_ent.searchEntityById(idEnt);
 
-    //Ссылка на созданный объект Атрибут
+    //Г‘Г±Г»Г«ГЄГ  Г­Г  Г±Г®Г§Г¤Г Г­Г­Г»Г© Г®ГЎГєГҐГЄГІ ГЂГІГ°ГЁГЎГіГІ
     var linkAtr = this.list_atr.add(new Attributes(name, idEnt, type, domainName,description)).data;
 
     curEntity.atr_lynks.push(linkAtr);
 
     this.Add_Group('G' + type + idEnt, idEnt, type,linkAtr.id);
-    //Добавить в новую группу?
+    //Г„Г®ГЎГ ГўГЁГІГј Гў Г­Г®ГўГіГѕ ГЈГ°ГіГЇГЇГі?
     
     if (linkAtr.type === PRIMARY_KEY) {
         for (var i = 1; i <= this.list_rel._length; i++) {
@@ -291,17 +291,28 @@ Repository.prototype.Add_Attribute = function (name, idEnt, type, domainName,des
     return linkAtr.id;
 
 };
-/*Удаление Атрибута*/
+
+Repository.prototype.Edit_Attribute= function (idAtr,name,type,domainName,description) {
+    var atrToEdit = this.list_atr.searchEntityById(idAtr);
+    var ownerEnt = this.list_ent.searchEntityById(atrToEdit._owner_id);
+ 
+    atrToEdit.name=name;
+    atrToEdit.type=type;
+    atrToEdit.domainName=domainName; 
+    atrToEdit.description=description;
+}
+
+/*Г“Г¤Г Г«ГҐГ­ГЁГҐ ГЂГІГ°ГЁГЎГіГІГ */
 Repository.prototype.Delete_Attribute = function (idAtr) {
 
-    //Атрибут для удаления
+    //ГЂГІГ°ГЁГЎГіГІ Г¤Г«Гї ГіГ¤Г Г«ГҐГ­ГЁГї
     var atrToDelete = this.list_atr.searchEntityById(idAtr);
 
-    // Сущность-владелец атрибута
+    // Г‘ГіГ№Г­Г®Г±ГІГј-ГўГ«Г Г¤ГҐГ«ГҐГ¶ Г ГІГ°ГЁГЎГіГІГ 
     var ownerEnt = this.list_ent.searchEntityById(atrToDelete._owner_id);
 
     var i;
-    //Удаление атрибута из сущностей у которых есть связи с текущей
+    //Г“Г¤Г Г«ГҐГ­ГЁГҐ Г ГІГ°ГЁГЎГіГІГ  ГЁГ§ Г±ГіГ№Г­Г®Г±ГІГҐГ© Гі ГЄГ®ГІГ®Г°Г»Гµ ГҐГ±ГІГј Г±ГўГїГ§ГЁ Г± ГІГҐГЄГіГ№ГҐГ©
     /*for (i = 0; i < ownerEnt.atr_lynks.length; i++) {
         for (var j = 1; j < this.list_ent._length; j++) {
             if (ownerEnt.atr_lynks[i] != null) {
@@ -330,17 +341,17 @@ Repository.prototype.Delete_Attribute = function (idAtr) {
 
 
 };
-/*Добавление отношения*/
+/*Г„Г®ГЎГ ГўГ«ГҐГ­ГЁГҐ Г®ГІГ­Г®ГёГҐГ­ГЁГї*/
 Repository.prototype.Add_Relationship = function (name, parentId, childId, type, phrase, conn) {
     this.list_rel.add(new Relationship(name, parentId, childId, type, phrase, conn));
 };
-/*Добавление отношения уровня KB*/
+/*Г„Г®ГЎГ ГўГ«ГҐГ­ГЁГҐ Г®ГІГ­Г®ГёГҐГ­ГЁГї ГіГ°Г®ГўГ­Гї KB*/
 Repository.prototype.Add_RelationshipKB = function (name, parentId, childId, type, phrase, conn) {
 
-    //Сущность-родитель
+    //Г‘ГіГ№Г­Г®Г±ГІГј-Г°Г®Г¤ГЁГІГҐГ«Гј
     var entParent = this.list_ent.searchEntityById(parentId);
 
-    //Сущность-потомок
+    //Г‘ГіГ№Г­Г®Г±ГІГј-ГЇГ®ГІГ®Г¬Г®ГЄ
     var objChild = this.list_ent.searchEntityById(childId);
 
 
@@ -355,12 +366,12 @@ Repository.prototype.Add_RelationshipKB = function (name, parentId, childId, typ
     }
     this.list_rel.add(new Relationship(name, parentId, childId, type, phrase, conn));
 };
-/*Удаление отношения*/
+/*Г“Г¤Г Г«ГҐГ­ГЁГҐ Г®ГІГ­Г®ГёГҐГ­ГЁГї*/
 Repository.prototype.Delete_Relationship = function (idRel) {
     var relationToDelete = this.list_rel.searchEntityById(idRel);
     var objChildEnt = this.list_ent.searchEntityById(relationToDelete._child_id);
 
-    //Удаление внешних ключей
+    //Г“Г¤Г Г«ГҐГ­ГЁГҐ ГўГ­ГҐГёГ­ГЁГµ ГЄГ«ГѕГ·ГҐГ©
     if (objChildEnt.atr_lynks.length !== 0) {
         for (var i = 0; i < objChildEnt.atr_lynks.length; i++) {
             if (objChildEnt.atr_lynks[i]._owner_id === relationToDelete._parent_id)
@@ -369,24 +380,24 @@ Repository.prototype.Delete_Relationship = function (idRel) {
     }
     this.list_rel.remove(idRel);
 };
-/*Редактирование отношения*/
+/*ГђГҐГ¤Г ГЄГІГЁГ°Г®ГўГ Г­ГЁГҐ Г®ГІГ­Г®ГёГҐГ­ГЁГї*/
 Repository.prototype.Edit_Relationship = function (idRel, newDescription, newPhrase) {
     this.list_rel.searchEntityById(idRel).description = newDescription;
     this.list_rel.searchEntityById(idRel).phrase = newPhrase;
 };
-/*Редактирование сущности*/
+/*ГђГҐГ¤Г ГЄГІГЁГ°Г®ГўГ Г­ГЁГҐ Г±ГіГ№Г­Г®Г±ГІГЁ*/
 Repository.prototype.Edit_Entity = function (idEnt, newName, newDescription) {
     this.list_ent.searchEntityById(idEnt).name = newName;
     this.list_ent.searchEntityById(idEnt).description = newDescription;
 };
-/*Удаление сущности*/
+/*Г“Г¤Г Г«ГҐГ­ГЁГҐ Г±ГіГ№Г­Г®Г±ГІГЁ*/
 Repository.prototype.Delete_Entity = function (idEnt) {
 
-    //Массив id-шников связей
+    //ГЊГ Г±Г±ГЁГў id-ГёГ­ГЁГЄГ®Гў Г±ГўГїГ§ГҐГ©
     var idRelToDelete = [];
     var tmpEnt = this.list_ent.searchEntityById(idEnt);
     var i;
-    //Проверка на наличие связей у удаляемой сущности
+    //ГЏГ°Г®ГўГҐГ°ГЄГ  Г­Г  Г­Г Г«ГЁГ·ГЁГҐ Г±ГўГїГ§ГҐГ© Гі ГіГ¤Г Г«ГїГҐГ¬Г®Г© Г±ГіГ№Г­Г®Г±ГІГЁ
     if (this.list_rel._length === 1) {
         if (this.list_rel.searchNodeAt(this.list_rel._length)._parent_id === idEnt || this.list_rel.searchNodeAt(this.list_rel._length)._child_id === idEnt) {
             this.list_rel.remove(this.list_rel.searchNodeAt(this.list_rel._length)._id);
@@ -400,26 +411,26 @@ Repository.prototype.Delete_Entity = function (idEnt) {
             }
         }
     }
-    //Удаление всех групп и компонентов сущности
+    //Г“Г¤Г Г«ГҐГ­ГЁГҐ ГўГ±ГҐГµ ГЈГ°ГіГЇГЇ ГЁ ГЄГ®Г¬ГЇГ®Г­ГҐГ­ГІГ®Гў Г±ГіГ№Г­Г®Г±ГІГЁ
     for (i = 1; i <= this.list_keygroup._length; i++) {
         var groupToDeleteId = this.list_keygroup.searchNodeAt(i).ent_id;
         if (groupToDeleteId == idEnt)
             this.Delete_Group(this.list_keygroup.searchNodeAt(i).Get_ID());
     }
-    //Удаление всех ссылок на атрибуты
+    //Г“Г¤Г Г«ГҐГ­ГЁГҐ ГўГ±ГҐГµ Г±Г±Г»Г«Г®ГЄ Г­Г  Г ГІГ°ГЁГЎГіГІГ»
     for (i = 0; i < tmpEnt.atr_lynks.length; i++) {
         if (tmpEnt.atr_lynks[i] != null)
             this.Delete_Attribute(tmpEnt.atr_lynks[i].id);
     }
-    //Удаление всех связей имеющихся у удаляемой сущности
+    //Г“Г¤Г Г«ГҐГ­ГЁГҐ ГўГ±ГҐГµ Г±ГўГїГ§ГҐГ© ГЁГ¬ГҐГѕГ№ГЁГµГ±Гї Гі ГіГ¤Г Г«ГїГҐГ¬Г®Г© Г±ГіГ№Г­Г®Г±ГІГЁ
     for (var j = 0; j < idRelToDelete.length; j++) {
         this.Delete_Relationship(idRelToDelete[j]);
     }
-    //Удаление сущности
+    //Г“Г¤Г Г«ГҐГ­ГЁГҐ Г±ГіГ№Г­Г®Г±ГІГЁ
     this.list_ent.remove(idEnt);
 
 };
-/*Добавление группы*/
+/*Г„Г®ГЎГ ГўГ«ГҐГ­ГЁГҐ ГЈГ°ГіГЇГЇГ»*/
 Repository.prototype.Add_Group = function (nameKg, entId, typeKg,atrId) {
     
     var isOldGroup = false;
@@ -438,11 +449,11 @@ Repository.prototype.Add_Group = function (nameKg, entId, typeKg,atrId) {
         this.Add_Component(newGroupItem.name_kg, newGroupItem.id);
     }
 }
-/*Добавление компонента*/
+/*Г„Г®ГЎГ ГўГ«ГҐГ­ГЁГҐ ГЄГ®Г¬ГЇГ®Г­ГҐГ­ГІГ */
 Repository.prototype.Add_Component = function (nameKg, attributeId) {
     return this.list_comp.add(new Component(nameKg, attributeId)).data;
 }
-/*Удаление группы*/
+/*Г“Г¤Г Г«ГҐГ­ГЁГҐ ГЈГ°ГіГЇГЇГ»*/
 Repository.prototype.Delete_Group = function (idGroup) {
     var groupToDelete = this.list_keygroup.searchEntityById(idGroup);
     for (var i = 1; i <= this.list_comp._length; i++) {
