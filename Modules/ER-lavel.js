@@ -101,6 +101,9 @@ function Validation(ModalWindow){
                     }
                     }
 
+                    for (var i = 1; i <= _Repository.list_ent._length; i++)
+                      Refresh_Atr(_Repository.list_ent.searchNodeAt(i).Get_ID());
+
                     $('#KeyName').val('');
                     $("#DataType :nth-child(1)").attr("selected", "selected");
                     $("#KeyType :nth-child(1)").attr("selected", "selected");
