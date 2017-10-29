@@ -23,8 +23,10 @@
             <script src="Modules/Repository.js"></script>
             <script type="text/javascript" src="Modules/Initialize_Repository.js"></script>
             <script src="Modules/CreateEntity.js"></script>
+            <script src="Modules/CreateConnection.js"></script>
             <script src="Modules/ER-lavel.js"></script>
             <script src="Modules/KB-lavel.js"></script>
+            
 
             <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
             <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -190,7 +192,59 @@
             </div>
           </div>
         </div>
-      </div>
+    </div>
+
+    <!--Модальное окно для создания связи один-ко-многим -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="One-to-many">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title">
+                <span class="glyphicon glyphicon-random" aria-hidden="true">  </span>
+                Создание связи один-ко-многим
+              </h4>
+            </div>
+            <div class="modal-body">
+              <form>
+
+                <div class="form-group">
+                    <label>Сущность-родитель</label>
+                    <select class="form-control" id="ParentEntityName"></select>
+                </div>
+
+                <div class="form-group">
+                    <label>Сущность-потомок</label>
+                    <select class="form-control" id="ChildEntityName"></select>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                      Глагольная фраза
+                    </label>
+                    <input type="text" class="form-control" id="verb_phrase" placeholder="Глагольная фраза">
+                </div>
+
+                <div class="form-group">
+                  <label for="Many-to-many_Description">Описание</label>
+                  <textarea class="form-control" rows="5" id="One-to-many_Description" 
+                    placeholder="Описание связи"></textarea>
+                </div>
+
+              </form>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-dismiss="modal" 
+                onclick="createConnection($('#ParentEntityName').val(), $('#ChildEntityName').val(),
+                    $('#verb_phrase').val(), 'OneToMany', $('#One-to-many_Description').val());">
+                Создать
+              </button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
     <!--Редактирование атрибутов-->
     <div class="modal fade" id="KeysModal" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">

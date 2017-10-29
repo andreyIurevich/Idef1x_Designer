@@ -278,7 +278,7 @@ Repository.prototype.Add_Attribute = function (name, idEnt, type, domainName,des
     this.Add_Group('G' + type + idEnt, idEnt, type,linkAtr.id);
     //Äîáàâèòü â íîâóþ ãðóïïó?
     
-    if (linkAtr.type === PRIMARY_KEY) {
+    if (linkAtr.type == PRIMARY_KEY /*|| linkAtr.type == ALT_KEY*/) {
         for (var i = 1; i <= this.list_rel._length; i++) {
             if (this.list_rel.searchNodeAt(i)._parent_id === idEnt) {
                 var tmpChildEnt = this.list_ent.searchEntityById(this.list_rel.searchNodeAt(i)._child_id);
@@ -356,7 +356,7 @@ Repository.prototype.Add_RelationshipKB = function (name, parentId, childId, typ
 
 
     for (var i = 0; i < entParent.atr_lynks.length; i++) {
-        if (entParent.atr_lynks[i].type === PRIMARY_KEY) {           
+        if (entParent.atr_lynks[i].type == PRIMARY_KEY /*|| entParent.atr_lynks[i].type == ALT_KEY*/) {           
             var temp = this.list_atr.searchEntityById(entParent.atr_lynks[i].id);
             //temp.type="FK";
             this.Add_Group('G' + temp.type+childId, childId, temp.type,temp.id);

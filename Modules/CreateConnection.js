@@ -1,10 +1,46 @@
-var ConnectionCounter = 0; 
+var ConnectionCounter = 0;
+
+function Refresh_Atr(entityId){
+	var EntityKeys = $("#keys" + entityId);
+    var EntityAttr = $("#attributes" + entityId);
+        EntityKeys.empty();
+        EntityAttr.empty();
+	$('#keys' + entityId).empty();
+	var x =_Repository.list_ent.searchEntityById(entityId).atr_lynks;
+    for (var i = 0; i < x.length;  i++)
+    {
+      if(x[i]!=null){
+      	  var attr_name;
+      	  if (x[i]._owner_id != entityId)
+      	  	attr_name = x[i].name + " (FK)";
+      	  else
+      	  	attr_name = x[i].name;
+          var element = $("<div></div>", {class: "attribute"}).attr('data-repositoryId', x[i].id).text(attr_name);
+          if (x[i].type == "PK")
+          {
+            element.appendTo(EntityKeys);
+          }
+          else
+          {
+            element.appendTo(EntityAttr);
+          }
+    	}
+    }
+} 
 
 function createConnection(source_n, target_n, verb_phrase, type, description){
 
     var jsPlumbConn;
-    console.log("createConnection : ", source_n, target_n);
-    _Repository.Add_Relationship(description, source_n, target_n, type, verb_phrase, null);
+
+    if ($("input[name='lavel']").val() == "ER")
+    	_Repository.Add_Relationship(description, source_n, target_n, type, verb_phrase, null);
+    else
+    	if ($("input[name='lavel']").val() == "KB")
+    	{
+    		_Repository.Add_RelationshipKB(description, source_n, target_n, type, verb_phrase, null);
+    		Refresh_Atr(target_n);
+    	}
+
     ConnectionCounter++;
 
     switch (type) {
@@ -72,5 +108,4 @@ function createConnection(source_n, target_n, verb_phrase, type, description){
 	}
 
 	_Repository.list_rel.searchNodeAt(_Repository.list_rel._length).jsPlumbConn = jsPlumbConn;
-	console.log();
 }
