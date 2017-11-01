@@ -12,6 +12,7 @@ function deleteAttribute(){
 	}
 	//Удаление атрибута из диаграммы
 	$('div[data-repositoryId=' + AttributeID + ']').remove();
+  jsPlumb.revalidate($(".block"));
 
 	//Удаление атрибута из репозитория
 	_Repository.Delete_Attribute(AttributeID);

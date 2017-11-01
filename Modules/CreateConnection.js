@@ -26,11 +26,13 @@ function Refresh_Atr(entityId){
           }
     	}
     }
+    jsPlumb.revalidate($(".block"));
 } 
 
 function createConnection(source_n, target_n, verb_phrase, type, description){
 
     var jsPlumbConn;
+    console.log("source_n = ", source_n);
 
     if ($("input[name='lavel']").val() == "ER")
     	_Repository.Add_Relationship(description, source_n, target_n, type, verb_phrase, null);
@@ -38,6 +40,10 @@ function createConnection(source_n, target_n, verb_phrase, type, description){
     	if ($("input[name='lavel']").val() == "KB")
     	{
     		_Repository.Add_RelationshipKB(description, source_n, target_n, type, verb_phrase, null);
+        /*
+        $("#keys" + target_n).css({"border-top-radius": "5px"});
+        $("#attributes" + target_n).css({"border-bottom-radius": "5px"});
+        */
     		Refresh_Atr(target_n);
     	}
 

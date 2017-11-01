@@ -34,6 +34,7 @@ function AddEntity(EntityName, Description, Lavel, positionX, positionY){
 
     if (Lavel == "ER"){
         var Content = $('<div></div>').attr('data', 'name').text(EntityName).css({
+            "min-height": "10px",
             "flex-grow": 1,
             "border": "1px solid black",
             "padding": "2px"
@@ -43,7 +44,6 @@ function AddEntity(EntityName, Description, Lavel, positionX, positionY){
             var Name = $('<div></div>').css({"padding": "1px"}).attr('data', 'name').text(EntityName).appendTo(Entity);
 
             Keys = $('<div></div>', {id: "keys" + entityID}).css({
-                "min-height": "20px",
                 "flex-grow": 1,
                 "display": "flex",
                 "flex-direction": "column",
