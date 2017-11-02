@@ -40,10 +40,12 @@ function createConnection(source_n, target_n, verb_phrase, type, description){
     	if ($("input[name='lavel']").val() == "KB")
     	{
     		_Repository.Add_RelationshipKB(description, source_n, target_n, type, verb_phrase, null);
-        /*
-        $("#keys" + target_n).css({"border-top-radius": "5px"});
-        $("#attributes" + target_n).css({"border-bottom-radius": "5px"});
-        */
+        
+        $("#keys" + target_n).css("border-top-left-radius", "10px");
+        $("#keys" + target_n).css("border-top-right-radius", "10px");
+        $("#attributes" + target_n).css("border-bottom-right-radius", "10px");
+        $("#attributes" + target_n).css("border-bottom-left-radius", "10px");
+        
     		Refresh_Atr(target_n);
     	}
 
