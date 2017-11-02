@@ -73,3 +73,27 @@ function createEntityList(){
         $("#SaveAttribute").prop("disabled", false);
     });
 }
+
+function AAAAcreateComment(TextComment){
+    CommentCounter++;
+    var comment_container = $('<div></div>', {
+      id : "CommentId" + CommentCounter,
+      class: "text-center", 
+      blocktype: "comment" 
+    }).css({
+      "min-width": "120px",
+      "min-height": "50px",
+      "position": "absolute",
+      "padding": "3px",
+      "left": "130px",
+      "top": "200px",
+      "color": "red",
+      "border": /*"1px dotted red"*/ "none"
+    });
+
+    var text_in_comment = $('<div></div>').text(TextComment).appendTo(comment_container);
+
+    $(comment_container).appendTo('body');
+
+    jsPlumb.draggable(comment_container);
+}
