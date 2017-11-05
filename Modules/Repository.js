@@ -1,131 +1,3 @@
-/*function Repository() {
-    this.list_ent = new SinglyList();
-    this.list_atr = new SinglyList();
-    this.list_rel = new SinglyList();
-    this.list_comp = new SinglyList();
-    this.list_keygroup = new SinglyList();
-};
-Repository.prototype.Add_Entity = function (name, type, description, picture_id)  {
-    this.list_ent.add(new Entity(name, type, description, picture_id));
-};
-Repository.prototype.Add_Attribute = function (name, id_ent, type,domain_name)  {
-	var object=this.list_ent.searchEntityById(id_ent);
-	var tmp_atr=this.list_atr.add(new Attributes(name, id_ent, type,domain_name)).data;
-	object.atr_lynks.push(tmp_atr);
-	if(tmp_atr.type==PRIMARY_KEY)  {	
-	for(var i=1;i<=this.list_rel._length;i++)  {
-		if(this.list_rel.searchNodeAt(i)._parent_id==id_ent)  {
-		var tmp_child_ent=this.list_ent.searchEntityById(this.list_rel.searchNodeAt(i)._child_id);
-		tmp_child_ent.atr_lynks.push(tmp_atr);	
-			}
-		}
-	}
-    
-};
-Repository.prototype.Delete_Attribute = function (id_atr)  {
-	var object=this.list_atr.searchEntityById(id_atr);
-	var owner_ent=this.list_ent.searchEntityById(object._owner_id);
-	for(var i=0;i<owner_ent.atr_lynks.length;i++)
-	{
-		for(var j=1;j<this.list_ent._length;j++)  {
-			if(owner_ent.atr_lynks[i]!=null)  {
-				for(var k=0;k<this.list_ent.searchNodeAt(j+1).atr_lynks.length;k++){
-			if(this.list_ent.searchNodeAt(j+1).atr_lynks[k]!=null)  {
-				if(owner_ent.atr_lynks[i].id==this.list_ent.searchNodeAt(j+1).atr_lynks[k].id&&owner_ent.atr_lynks[i].id==id_atr)
-					this.list_ent.searchNodeAt(j+1).atr_lynks[k]=null;
-			}
-			}
-					
-			}
-		}
-	}
-	for(var i=0;i<owner_ent.atr_lynks.length;i++)  {
-		
-		if (owner_ent.atr_lynks[i]!=null){
-		if (owner_ent.atr_lynks[i].id==id_atr)
-			owner_ent.atr_lynks[i]=null;
-	}
-	}
-	this.list_atr.remove(id_atr);
-	
-
-};
-Repository.prototype.Add_Relationship = function (name, parent_id, child_id, type, phrase, conn) {
-    this.list_rel.add(new Relationship(name, parent_id, child_id, type, phrase, conn));
-};
-Repository.prototype.Add_RelationshipKB = function (name, parent_id, child_id, type, phrase, conn) {
-    
-   this.list_rel.add(new Relationship(name, parent_id, child_id, type, phrase, conn));
-    var obj_parent=this.list_ent.searchEntityById(parent_id);
-    var obj_child=this.list_ent.searchEntityById(child_id);
-    for(var i=0;i<obj_parent.atr_lynks.length;i++)  {
-		if(obj_parent.atr_lynks[i].type==PRIMARY_KEY)  {	
-			var temp = this.list_atr.searchEntityById(obj_parent.atr_lynks[i].id);
-			obj_child.atr_lynks.push(temp);		
-		}
-		
-}
-};
-Repository.prototype.Delete_Relationship = function (id_rel)  {
-    var obj_tmp=this.list_rel.searchEntityById(id_rel);
-    var obj_child_ent=this.list_ent.searchEntityById(obj_tmp._child_id);
-    if(obj_child_ent.atr_lynks.length!=0)  {
-    	for(var i=0;i<obj_child_ent.atr_lynks.length;i++)  {
-    			if(obj_child_ent.atr_lynks[i]._owner_id==obj_tmp._parent_id)
-    			obj_child_ent.atr_lynks[i]=null;	
-    	}
-    }
-    this.list_rel.remove(id_rel);
-};
-Repository.prototype.Edit_Relationship = function (id_rel, new_description,new_phrase)  {
-    this.list_rel.searchEntityById(id_rel).description = new_description;
-    this.list_rel.searchEntityById(id_rel).phrase = new_phrase;
-};
-Repository.prototype.Edit_Entity = function (id_ent, new_name, new_description)  {
-    this.list_ent.searchEntityById(id_ent).name = new_name;
-    this.list_ent.searchEntityById(id_ent).description = new_description;
-};
-Repository.prototype.Delete_Entity = function (id_ent)  {
-    var k, k1;
-    var c=[];
-    k = this.list_rel._length;
-   
-    if (k == 1)  {
-        if (this.list_rel.searchNodeAt(k)._parent_id == id_ent || this.list_rel.searchNodeAt(k)._child_id == id_ent)  {
-            var c = this.list_rel.searchNodeAt(k)._id;
-            this.list_rel.remove(c);
-        }
-    }
-    else  {
-        for (var i = 1; i <= k; i++)  {
-            if (this.list_rel.searchNodeAt(i)._parent_id == id_ent || this.list_rel.searchNodeAt(i)._child_id == id_ent)  {
-
-                c.push(this.list_rel.searchNodeAt(i)._id);
-            }
-        }
-    }
-    for (var j = 0; j < c.length; j++)  {
-        this.list_rel.remove(c[j]);
-    }
-    for(var i=0;i<this.list_ent.atr_lynks.length;i++)
-    {
-    	Repository.Delete_Attribute(this.list_ent.atr_lynks[i]._id);
-    }    
-        this.list_ent.remove(id_ent);
-    
-};
-Repository.prototype.Add_Group=function(name_kg,ent_id,type_kg)  {
-
-this.list_keygroup.add(new KeyGroup(name_kg,ent_id,type_kg));
-}
-Repository.prototype.Add_Component=function(name_kg, attribute_id)  {
-
-this.list_keygroup.add(new Component(name_kg, attribute_id));
-}
-Repository.prototype.Delete_Group=function(id_group)  {
-
-this.list_keygroup.remove(id_group);
-}*/
 var IND_ENT = 'Independent';
 var DEP_ENT = 'Dependent';
 var KEY_ATR = 'Key';
@@ -135,6 +7,7 @@ var FOREING_KEY = 'FK';
 var ALT_KEY = 'AK';
 var IDEN_REL = 'Identificate';
 var NON_IDEN_REL = 'Non-identificate';
+var MANY_TO_MANY = 'Many-to-many';
 
 function Entity(name, type, description) {
     //Èä îáúåêòà
@@ -346,6 +219,7 @@ Repository.prototype.Add_Relationship = function (name, parentId, childId, type,
     this.list_rel.add(new Relationship(name, parentId, childId, type, phrase, conn));
 };
 /*Äîáàâëåíèå îòíîøåíèÿ óðîâíÿ KB*/
+/*
 Repository.prototype.Add_RelationshipKB = function (name, parentId, childId, type, phrase, conn) {
 
     //Ñóùíîñòü-ðîäèòåëü
@@ -356,13 +230,43 @@ Repository.prototype.Add_RelationshipKB = function (name, parentId, childId, typ
 
 
     for (var i = 0; i < entParent.atr_lynks.length; i++) {
-        if (entParent.atr_lynks[i].type == PRIMARY_KEY /*|| entParent.atr_lynks[i].type == ALT_KEY*/) {           
+        if (entParent.atr_lynks[i].type == PRIMARY_KEY || entParent.atr_lynks[i].type == ALT_KEY) {           
             var temp = this.list_atr.searchEntityById(entParent.atr_lynks[i].id);
             //temp.type="FK";
             this.Add_Group('G' + temp.type+childId, childId, temp.type,temp.id);
             objChild.atr_lynks.push(temp);
         }
 
+    }
+    this.list_rel.add(new Relationship(name, parentId, childId, type, phrase, conn));
+};
+*/
+Repository.prototype.Add_RelationshipKB = function (name, parentId, childId, type, phrase, conn) {
+
+    //Ñóùíîñòü-ðîäèòåëü
+    var entParent = this.list_ent.searchEntityById(parentId);
+    //Ñóùíîñòü-ïîòîìîê
+    var objChild = this.list_ent.searchEntityById(childId);
+    switch(type){
+     case IDEN_REL :
+        for (var i = 0; i < entParent.atr_lynks.length; i++) {
+        if (entParent.atr_lynks[i].type == PRIMARY_KEY) {           
+            var temp = this.list_atr.searchEntityById(entParent.atr_lynks[i].id);
+            this.Add_Group('G' + temp.type+childId, childId, temp.type,temp.id);
+            objChild.atr_lynks.push(temp);
+         }
+     }
+     break;
+     case NON_IDEN_REL :
+     for (var i = 0; i < entParent.atr_lynks.length; i++) {
+        if (entParent.atr_lynks[i].type == PRIMARY_KEY && entParent.atr_lynks[i]._owner_id == parentId) {           
+            var temp = this.list_atr.searchEntityById(entParent.atr_lynks[i].id);
+            temp.type="FK";
+            this.Add_Group('G' + temp.type+childId, childId, temp.type,temp.id);
+            objChild.atr_lynks.push(temp);
+         }
+     }
+     break;
     }
     this.list_rel.add(new Relationship(name, parentId, childId, type, phrase, conn));
 };

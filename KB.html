@@ -256,6 +256,19 @@
                     </label>
                     <input type="text" class="form-control" id="verb_phrase" placeholder="Глагольная фраза">
                 </div>
+                
+                <label>Тип связи</label>
+                <div class="form-group">
+                    <label class="radio-inline">
+                        <input type="radio" name="optradio" value="Identificate">Идентифицирующая
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="optradio" value="Many-to-many">Многие-ко-многим
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="optradio" value="Non-identificate">Неидентифицирующая
+                    </label>
+                </div>
 
                 <div class="form-group">
                   <label for="Many-to-many_Description">Описание</label>
@@ -268,8 +281,14 @@
 
             <div class="modal-footer">
               <button type="button" class="btn btn-primary" data-dismiss="modal" 
-                onclick="createConnection($('#ParentEntityName').val(), $('#ChildEntityName').val(),
-                    $('#verb_phrase').val(), 'OneToMany', $('#One-to-many_Description').val());">
+                onclick="createConnection(
+                        $('#ParentEntityName').val(), 
+                        $('#ChildEntityName').val(),
+                        $('#verb_phrase').val(), 
+                        /*'OneToMany',*/
+                        $('input[name=optradio]:checked').val(), 
+                        $('#One-to-many_Description').val());
+                        ">
                 Создать
               </button>
               <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
