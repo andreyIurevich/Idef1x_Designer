@@ -41,6 +41,8 @@ function Attributes(name, entId, type, domain, descp) {
     this.domainName = domain;
 
     this.description = descp;
+    this.mig_id = null;
+    this.mig_type = null;
 }
 Attributes.counter = 0;
 Attributes.prototype.Get_ID = function () {
@@ -151,11 +153,10 @@ Repository.prototype.Add_Attribute = function (name, idEnt, type, domainName,des
     this.Add_Group('G' + type + idEnt, idEnt, type,linkAtr.id);
     //Äîáàâèòü â íîâóþ ãðóïïó?
     
-    if (linkAtr.type == PRIMARY_KEY /*|| linkAtr.type == ALT_KEY*/) {
+    if (linkAtr.type == PRIMARY_KEY) {
         for (var i = 1; i <= this.list_rel._length; i++) {
             if (this.list_rel.searchNodeAt(i)._parent_id === idEnt) {
                 var tmpChildEnt = this.list_ent.searchEntityById(this.list_rel.searchNodeAt(i)._child_id);
-                //linkAtr.type="FK";
                 tmpChildEnt.atr_lynks.push(linkAtr);
             }
         }
@@ -252,8 +253,11 @@ Repository.prototype.Add_RelationshipKB = function (name, parentId, childId, typ
         for (var i = 0; i < entParent.atr_lynks.length; i++) {
         if (entParent.atr_lynks[i].type == PRIMARY_KEY) {           
             var temp = this.list_atr.searchEntityById(entParent.atr_lynks[i].id);
+            var linkAtr = this.list_atr.add(new Attributes(temp.name, temp._owner_id, temp.type, temp.domainName, temp.description)).data;
+            linkAtr.mig_id = temp.id;
+            linkAtr.mig_type = IDEN_REL;
             this.Add_Group('G' + temp.type+childId, childId, temp.type,temp.id);
-            objChild.atr_lynks.push(temp);
+            objChild.atr_lynks.push(linkAtr);
          }
      }
      break;
@@ -261,9 +265,11 @@ Repository.prototype.Add_RelationshipKB = function (name, parentId, childId, typ
      for (var i = 0; i < entParent.atr_lynks.length; i++) {
         if (entParent.atr_lynks[i].type == PRIMARY_KEY && entParent.atr_lynks[i]._owner_id == parentId) {           
             var temp = this.list_atr.searchEntityById(entParent.atr_lynks[i].id);
-            temp.type="FK";
+            var linkAtr = this.list_atr.add(new Attributes(temp.name, temp._owner_id, "FK", temp.domainName, temp.description)).data;
+            linkAtr.mig_id = temp.id;
+            linkAtr.mig_type = NON_IDEN_REL;
             this.Add_Group('G' + temp.type+childId, childId, temp.type,temp.id);
-            objChild.atr_lynks.push(temp);
+            objChild.atr_lynks.push(linkAtr);
          }
      }
      break;

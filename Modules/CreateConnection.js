@@ -25,13 +25,16 @@ function Refresh_Atr(entityId){
           }
           */
 
-          if (x[i].type == "PK")
+          if (x[i].type == "PK" && x[i].mig_id == null)
           {
             
             element.appendTo(EntityKeys);
           }
           else
           {
+            if(x[i].mig_type == IDEN_REL)
+              element.appendTo(EntityKeys);
+            else
             element.appendTo(EntityAttr);
           }
     	}
