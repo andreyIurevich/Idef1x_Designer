@@ -78,13 +78,9 @@
             <li class="dropdown">
                 <a data-toggle="dropdown" class="dropdown-toggle" href="#">Связи <b class="caret"></b></a>
                 <ul role="menu" class="dropdown-menu">
-                  <button class="btn btn-link" data-toggle="modal" data-target="#One-to-many"
+                  <button class="btn btn-link" data-toggle="modal" data-target="#MakeRelationships"
                     onclick="clearElements('One-to-many');">
-                    Идентифицирующая
-                  </button>
-                  <button class="btn btn-link" data-toggle="modal" data-target="#Many-to-many"
-                    onclick="clearElements('Many-to-many');">
-                    Многие-ко-многим
+                    Создание связи
                   </button>
                   <button class="btn btn-link" data-toggle="modal" data-target="#EditRelationship"
                     onclick="clearElements('EditRelationship');">
@@ -193,58 +189,8 @@
         </div>
       </div>
 
-      <!--Модальное окно для создания связи многие-ко-многим -->
-      <div class="modal fade" tabindex="-1" role="dialog" id="Many-to-many">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title">
-                <span class="glyphicon glyphicon-random" aria-hidden="true">  </span>
-                Создание связи многие-ко-многим
-              </h4>
-            </div>
-            <div class="modal-body">
-              <form>
-                <div class="form-group">
-                    <label>Сущность</label>
-                    <select class="form-control" id="EntityName1"></select>
-                </div>
-
-                <div class="form-group">
-                    <label>Сущность</label>
-                    <select class="form-control" id="EntityName2"></select>
-                </div>
-
-                <div class="form-group">
-                    <label>
-                      Глагольная фраза
-                    </label>
-                    <input type="text" class="form-control" id="Many-to-many_label" placeholder="Глагольная фраза">
-                </div>
-
-                <div class="form-group">
-                  <label for="Many-to-many_Description">Описание</label>
-                  <textarea class="form-control" rows="5" id="Many-to-many_Description" 
-                    placeholder="Описание связи"></textarea>
-                </div>
-
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-primary" data-dismiss="modal" 
-                onclick="createConnection($('#EntityName1').val(), $('#EntityName2').val(),
-                    $('#Many-to-many_label').val(), 'ManyToMany', $('#Many-to-many_Description').val());">
-                Создать
-              </button>
-              <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
-            </div>
-          </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-
-    <!--Модальное окно для создания связи один-ко-многим -->
-    <div class="modal fade" tabindex="-1" role="dialog" id="One-to-many">
+      <!--Окно для создания связей-->
+      <div class="modal fade" tabindex="-1" role="dialog" id="MakeRelationships">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -273,6 +219,19 @@
                     </label>
                     <input type="text" class="form-control" id="verb_phrase" placeholder="Глагольная фраза">
                 </div>
+                
+                <label>Тип связи</label>
+                <div class="form-group">
+                    <label class="radio-inline">
+                        <input type="radio" name="optradio" value="Identificate">Идентифицирующая
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="optradio" value="Many-to-many">Многие-ко-многим
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="optradio" value="Non-identificate">Неидентифицирующая
+                    </label>
+                </div>
 
                 <div class="form-group">
                   <label for="Many-to-many_Description">Описание</label>
@@ -285,8 +244,13 @@
 
             <div class="modal-footer">
               <button type="button" class="btn btn-primary" data-dismiss="modal" 
-                onclick="createConnection($('#ParentEntityName').val(), $('#ChildEntityName').val(),
-                    $('#verb_phrase').val(), 'OneToMany', $('#One-to-many_Description').val());">
+                onclick="createConnection(
+                        $('#ParentEntityName').val(), 
+                        $('#ChildEntityName').val(),
+                        $('#verb_phrase').val(), 
+                        $('input[name=optradio]:checked').val(), 
+                        $('#One-to-many_Description').val());
+                        ">
                 Создать
               </button>
               <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
