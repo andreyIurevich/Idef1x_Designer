@@ -43,6 +43,10 @@
             .attribute{
                 margin: 3px 5px;
             }
+            .no-ident-endpoint{
+                -webkit-transform: rotate(40deg);
+                background-color: white;
+            }
             </style>
     </head>
 <body>
@@ -92,7 +96,7 @@
                             onclick="clearElements('Many-to-many');">
                                 Многие-ко-многим
                         </button>
-                        <button class="btn btn-link" data-toggle="modal" data-target="#EditRelationship">
+                        <button class="btn btn-link" data-toggle="modal" data-target="#Relationships">
                                 Редактирование
                         </button>
                     </ul>
@@ -382,6 +386,126 @@
             </div>
             </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="Relationships">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Связи</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">   
+                        <div class="row">
+                            <div class="col-md-9">
+                                <select class="form-control" style="width: 100%">
+                                    <option value="" selected disabled hidden>Выберете связь</option>
+                                    <option value="int">Целое</option>
+                                    <option value="float">Вещественное</option>
+                                    <option value="text">Текст</option>
+                                    <option value="data">Дата</option>
+                                    <option value="time">Время</option>
+                                </select>
+                            </div>
+                                <div class="col-md-3">
+                                    <button type="button" class="btn btn-default btn-sm" data-target="#collapseExample"
+                                        data-toggle="collapse" aria-controls="collapseExample">Создать связь</button>
+                                </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="collapse" id="collapseExample">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Сущность-родитель</label>
+                                        <select class="form-control" style="width: 80%">
+                                            <option value="" selected disabled hidden>Выберете связь</option>
+                                            <option value="int">Целое</option>
+                                            <option value="float">Вещественное</option>
+                                            <option value="text">Текст</option>
+                                            <option value="data">Дата</option>
+                                            <option value="time">Время</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Сущность-потомок</label>
+                                        <select class="form-control" style="width: 80%">
+                                            <option value="" selected disabled hidden>Выберете связь</option>
+                                            <option value="int">Целое</option>
+                                            <option value="float">Вещественное</option>
+                                            <option value="text">Текст</option>
+                                            <option value="data">Дата</option>
+                                            <option value="time">Время</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <label>Глагольный оборот</label>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <textarea class="form-control" rows="3" placeholder="Родитель-потомок"></textarea>
+                            </div>
+                            <div class="col-md-6">
+                                <textarea class="form-control" rows="3" placeholder="Потомок-родитель"></textarea>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div style="margin-left: 15px; margin-right: 14px;">
+                                <div class="form-group">
+                                    <label>Описание</label>
+                                    <textarea class="form-control" rows="2" placeholder="Введите описание связи">
+                                    </textarea>
+                                </div>
+                            </div> 
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Тип связи</label>
+                                    <div class="radio">
+                                        <label><input type="radio" value="">Идентифицирующая
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label><input type="radio" value="">Неидентифицирующая
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label><input type="radio" value="">Многие-ко-многим</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Кардинальность</label>
+                                    <div class="radio">
+                                        <label><input type="radio" value="">Идентифицирующая  
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label><input type="radio" value="">Неидентифицирующая
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label><input type="radio" value="">Многие-ко-многим</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

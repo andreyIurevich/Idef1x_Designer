@@ -130,9 +130,11 @@ function createConnection(source_n, target_n, verb_phrase, type, description){
     case NON_IDEN_REL:
 
       var s = jsPlumb.addEndpoint(source_n, {
-        endpoint: "Blank",/*["Rectangle", {width: 7, height: 2}],*/
+        endpoint: /*"Blank",*/["Rectangle", {cssClass: "no-ident-endpoint" , width: 8, height: 8}],
         anchor: "Continuous",
-        endpointStyle : { fill: "#797D7F" }
+        /*endpointStyle : { fill: "black" },*/
+        /*paintStyle:{ outlineStroke: "black" }*/
+        endpointStyle:{ fill:"white", outlineStroke:"black" }
       });
 
       var t = jsPlumb.addEndpoint(target_n, {
