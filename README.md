@@ -24,6 +24,9 @@
 `Bootstrap`
 `FileSaver`
 
+## Скриншот приложения
+![default](https://user-images.githubusercontent.com/31206217/32990382-ad55211e-cd39-11e7-933c-a8aba8eb15f6.PNG)
+
 ## Разработчики
 Студенты 4-го курса ТУСУРа каф. АСУ
 
