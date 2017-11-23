@@ -28,12 +28,31 @@
     <script type="text/javascript" src="Modules/ER-lavel.js"></script>
 
     <script type="text/javascript">
+      $(document).ready(function(){
 
+          $(".save_in_browser").click(function(){
+              if ($('#ProjectName').val() != "")
+                  saveInBrowser(modelToJSON());
+          });
+
+          $(".save_in_file").click(function(){
+              if ($('#ProjectName').val() != "")
+                  saveInFile(modelToJSON());
+          });
+      });
     </script>
 
     <style>
       .aLabel{
           padding-bottom: 20px;
+      }
+      .attribute{
+                margin: 3px 5px;
+      }
+      .no-ident-endpoint{
+          -webkit-transform: rotate(45deg);
+          background-color: white;
+          z-index: 999;
       }
     </style>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -342,33 +361,35 @@
 
     <!--Модальное окно для сохранения проекта-->
     <div class="modal fade" tabindex="-1" role="dialog" id="SaveProject">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Сохранение проекта</h4>
-          </div>
-          <div class="modal-body">
-            <p>Сохранить проект в локальное хранилище.</p>
-            <button type="button" class="btn btn-primary"
-                onclick="saveInBrowser(modelToJSON());">
-              <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
-              Сохранить
-            </button>
-            <hr>
-            <p>Сохранить проект в файл для запуска на другом компьютере.</p>
-            <button type="button" class="btn btn-primary"
-                onclick="saveInFile(modelToJSON());">
-              <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
-              Сохранить на диск
-            </button>
-            <br>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
-          </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Сохранение проекта</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Название проекта</p>
+                    <div class="form-inline">
+                        <input class="form-control" id="ProjectName" placeholder="Введите имя проекта" 
+                                style="width: 75%;">
+                        
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default">Сохранить</button>
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#" class="save_in_browser">в браузер</a></li>
+                                <li><a href="#" class="save_in_file">на диск</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 
     <!--Модальное окно для открытия проекта-->

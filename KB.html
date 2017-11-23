@@ -38,6 +38,18 @@
 
             <script type="text/javascript">
                 var CommentCounter = 0;
+                $(document).ready(function(){
+
+                    $(".save_in_browser").click(function(){
+                        if ($('#ProjectName').val() != "")
+                            saveInBrowser(modelToJSON());
+                    });
+
+                    $(".save_in_file").click(function(){
+                        if ($('#ProjectName').val() != "")
+                            saveInFile(modelToJSON());
+                    });
+                });
             </script>
 
             <style type="text/css">
@@ -49,7 +61,6 @@
                 background-color: white;
                 z-index: 999;
             }
-
             .aLabel{
                 padding-bottom: 20px;
             }
@@ -65,7 +76,7 @@
         <!-- Список ссылок, расположенных слева -->
             <ul class="nav navbar-nav">
                 <!--Элемент с классом active отображает ссылку подсвеченной -->
-                <li><a href="#">ER</a></li>
+                <li><a href="ER.html">ER</a></li>
                 <li class="active"><a href="#">KB</a></li>
                 <li><a href="#">FA</a></li>
             </ul>
@@ -584,22 +595,22 @@
                     <h4 class="modal-title">Сохранение проекта</h4>
                 </div>
                 <div class="modal-body">
-                    <p>Сохранить проект в локальное хранилище.</p>
-                    <input class="form-control" id="ProjectName" placeholder="Введите имя проекта">
-                    <br>
-                    <button type="button" class="btn btn-primary"
-                        onclick="saveInBrowser(modelToJSON());">
-                        <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
-                        Сохранить
-                    </button>
-                    <hr>
-                    <p>Сохранить проект в файл для запуска на другом компьютере.</p>
-                    <button type="button" class="btn btn-primary"
-                        onclick="saveInFile(modelToJSON());">
-                        <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
-                        Сохранить на диск
-                    </button>
-                    <br>
+                    <p>Название проекта</p>
+                    <div class="form-inline">
+                        <input class="form-control" id="ProjectName" placeholder="Введите имя проекта" 
+                                style="width: 75%;">
+                        
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default">Сохранить</button>
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#" class="save_in_browser">в браузер</a></li>
+                                <li><a href="#" class="save_in_file">на диск</a></li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
