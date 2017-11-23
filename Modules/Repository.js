@@ -284,8 +284,10 @@ Repository.prototype.Delete_Relationship = function (idRel) {
     //Óäàëåíèå âíåøíèõ êëþ÷åé
     if (objChildEnt.atr_lynks.length !== 0) {
         for (var i = 0; i < objChildEnt.atr_lynks.length; i++) {
+            if(objChildEnt.atr_lynks[i]!=null){
             if (objChildEnt.atr_lynks[i]._owner_id === relationToDelete._parent_id)
                 objChildEnt.atr_lynks[i] = null;
+        }
         }
     }
     this.list_rel.remove(idRel);

@@ -31,6 +31,37 @@ function deleteAttribute(){
 		$("#SaveAttribute").prop("disabled", false);
 }
 
+function deleteRelationship(){
+  var relId = $('#connection_name').val();
+  //var parentId = _Repository.list_rel.searchEntityById(relId)._parent_id;
+  var childId = _Repository.list_rel.searchEntityById(relId)._child_id;
+  //Удаление связи из диаграммы
+  jsPlumb.detach(_Repository.list_rel.searchEntityById($('#connection_name').val()).jsPlumbConn);
+  //Удаление связи из репозитория
+  _Repository.Delete_Relationship($('#connection_name').val());
+
+  if ($("input[name='lavel']").val() == "KB")
+  {
+    for (var i = 1; i <= _Repository.list_ent._length; i++)
+    {
+        Refresh_Atr(_Repository.list_ent.searchNodeAt(i).Get_ID());
+    }
+
+    for (var i = 1; i <= _Repository.list_rel._length; i++)
+    {
+      if(_Repository.list_rel.searchNodeAt(i)._child_id == childId || 
+          _Repository.list_rel.searchNodeAt(i)._parent_id == childId)
+        if (_Repository.list_rel.searchNodeAt(i).type == IDEN_REL)
+            return;
+    }
+
+    $("#keys" + childId).css("border-top-left-radius", "0");
+    $("#keys" + childId).css("border-top-right-radius", "0");
+    $("#attributes" + childId).css("border-bottom-right-radius", "0");
+    $("#attributes" + childId).css("border-bottom-left-radius", "0");
+  }
+}
+
 
 function createEntityList(){
     var str, name;
