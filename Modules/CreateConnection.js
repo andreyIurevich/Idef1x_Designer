@@ -16,18 +16,8 @@ function Refresh_Atr(entityId){
       	  else
       	  	attr_name = x[i].name;
           var element = $("<div></div>", {class: "attribute"}).attr('data-repositoryId', x[i].id).text(attr_name);
-          
-          /*
-          if (x[i]._owner_id != entityId)
-          {
-            element.appendTo(EntityAttr);
-            continue;
-          }
-          */
-
           if (x[i].type == "PK" && x[i].mig_id == null)
           {
-            
             element.appendTo(EntityKeys);
           }
           else

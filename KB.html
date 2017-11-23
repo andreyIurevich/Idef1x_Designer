@@ -26,6 +26,7 @@
             <script src="Modules/CreateConnection.js"></script>
             <script src="Modules/ER-lavel.js"></script>
             <script src="Modules/KB-lavel.js"></script>
+            <script src="Modules/SaveModel.js"></script>
             
 
             <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -47,6 +48,10 @@
                 -webkit-transform: rotate(45deg);
                 background-color: white;
                 z-index: 999;
+            }
+
+            .aLabel{
+                padding-bottom: 20px;
             }
             </style>
     </head>
@@ -118,6 +123,8 @@
         </div>
     </nav>
 
+    <input type="hidden" name="lavel" value="KB">
+
     <!--Окно для создания сущности-->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" 
         aria-hidden="true">
@@ -143,7 +150,6 @@
                                 placeholder="Введите описание сущности">
                             </textarea>
                         </div>
-                        <input type="hidden" name="lavel" value="KB">
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -508,6 +514,72 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
+
+    <!--Модальное окно для сохранения проекта-->
+    <div class="modal fade" tabindex="-1" role="dialog" id="SaveProject">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Сохранение проекта</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Сохранить проект в локальное хранилище.</p>
+                    <input class="form-control" id="ProjectName" placeholder="Введите имя проекта">
+                    <br>
+                    <button type="button" class="btn btn-primary"
+                        onclick="saveInBrowser(modelToJSON());">
+                        <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+                        Сохранить
+                    </button>
+                    <hr>
+                    <p>Сохранить проект в файл для запуска на другом компьютере.</p>
+                    <button type="button" class="btn btn-primary"
+                        onclick="saveInFile(modelToJSON());">
+                        <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+                        Сохранить на диск
+                    </button>
+                    <br>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <!--Модальное окно для открытия проекта-->
+    <div class="modal fade" id="OpenProject" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Открыть проект</h4>
+                </div>
+                <div class="modal-body">
+                    <h4>Локальное хранилище</h4>
+                    <select id="ProjectsList" size="5" style="width: 100%; margin-bottom: 10px;">
+                    </select>
+                    <button type="button" class="btn btn-primary" 
+                        onclick="$('#OpenProject').modal('hide'); loadFromLocalStorage();">
+                        <span class="glyphicon glyphicon-open" aria-hidden="true"></span>
+                        Открыть
+                    </button>
+                    <hr>
+                    <h4>Жесткий диск</h4>
+                    <p>Открыть файл с проектом на жестком диске.</p>
+                    <button type="button" class="btn btn-primary"
+                        onclick="$('#OpenProject').modal('hide'); loadFromFile();">
+                        <span class="glyphicon glyphicon-open" aria-hidden="true"></span>
+                        Открыть
+                    </button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="libraries/bootstrap/js/jquery.min.js"></script>

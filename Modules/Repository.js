@@ -9,7 +9,7 @@ var IDEN_REL = 'Identificate';
 var NON_IDEN_REL = 'Non-identificate';
 var MANY_TO_MANY = 'Many-to-many';
 
-function Entity(name, type, description) {
+function Entity(name, type, description, atr_lynks = []) {
     //Èä îáúåêòà
     this.id = Entity.counter++;
     //Èìÿ ñóùíîñòè
@@ -21,14 +21,14 @@ function Entity(name, type, description) {
     //Îïèñàíèå ñóùíîñòè
     this.description = description;
     //Ìàññèâ ññûëîê íà àòðèáóòû ñóùíîñòè
-    this.atr_lynks = [];
+    this.atr_lynks = atr_lynks;
 }
 Entity.counter = 0;
 Entity.prototype.Get_ID = function () {
     return this.picture_id;
 }
 
-function Attributes(name, entId, type, domain, descp) {
+function Attributes(name, entId, type, domain, descp, mig_id = null, mig_type = null) {
     //Èä àòðèáóòà
     this.id = Attributes.counter++;
     //Èä âëàäåëüöà àòðèáóòà
@@ -41,8 +41,8 @@ function Attributes(name, entId, type, domain, descp) {
     this.domainName = domain;
 
     this.description = descp;
-    this.mig_id = null;
-    this.mig_type = null;
+    this.mig_id = mig_id;
+    this.mig_type = mig_type;
 }
 Attributes.counter = 0;
 Attributes.prototype.Get_ID = function () {
@@ -139,14 +139,14 @@ Repository.prototype.Add_Entity = function (name, type, description, pictureId) 
 /*
 Ôóíêöèÿ äîáàâëåíèÿ Àòðèáóòà
 */
-Repository.prototype.Add_Attribute = function (name, idEnt, type, domainName,description) {
+Repository.prototype.Add_Attribute = function (name, idEnt, type, domainName,description, mig_id = null, mig_type = null) {
 
 
     //Ñóùíîñòü ê êîòîðîé äîáàâëÿåòñÿ Àòðèáóò
     var curEntity = this.list_ent.searchEntityById(idEnt);
 
     //Ññûëêà íà ñîçäàííûé îáúåêò Àòðèáóò
-    var linkAtr = this.list_atr.add(new Attributes(name, idEnt, type, domainName,description)).data;
+    var linkAtr = this.list_atr.add(new Attributes(name, idEnt, type, domainName,description,mig_id,mig_type)).data;
 
     curEntity.atr_lynks.push(linkAtr);
 
