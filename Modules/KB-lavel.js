@@ -105,34 +105,3 @@ function createEntityList(){
     });
 }
 
-function AAAAcreateComment(TextComment){
-    CommentCounter++;
-    var comment_container = $('<div></div>', {
-      id : "CommentId" + CommentCounter,
-      class: "text-center", 
-      blocktype: "comment" 
-    }).css({
-      //"min-width": "120px",
-      //"min-height": "50px",
-      "position": "absolute",
-      "padding": "5px",
-      "left": "130px",
-      "top": "200px",
-      "color": "red",
-      "cursor": "pointer",
-      "border": /*"1px dotted red"*/ "none"
-    });
-
-    //var text_in_comment = $('<div contenteditable="true"></div>').text(TextComment).attr("contenteditable", "true").appendTo(comment_container);
-
-    var text_in_comment = $('<textarea rows="2"></textarea>')
-    .keydown(function(e) { 
-        if (e.which == 46) { $(this).remove(); }
-    })
-    .val(TextComment)
-    .appendTo(comment_container);
-
-    $(comment_container).appendTo('body');
-
-    jsPlumb.draggable(comment_container);
-}
