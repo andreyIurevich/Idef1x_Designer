@@ -174,6 +174,16 @@ Repository.prototype.Edit_Attribute= function (idAtr,name,type,domainName,descri
     atrToEdit.type=type;
     atrToEdit.domainName=domainName; 
     atrToEdit.description=description;
+
+    for(var i=1;i<=this.list_atr._length;i++){
+        var temp = this.list_atr.searchNodeAt(i);
+        if(temp.mig_id!=null && temp.mig_id == idAtr){
+            temp.name=name;
+            temp.type=type;
+            temp.domainName=domainName;
+            temp.description=description;
+        }
+    }
 }
 
 /*Óäàëåíèå Àòðèáóòà*/
@@ -192,7 +202,7 @@ Repository.prototype.Delete_Attribute = function (idAtr) {
             if (ownerEnt.atr_lynks[i] != null) {
                 for (var k = 0; k < this.list_ent.searchNodeAt(j + 1).atr_lynks.length; k++) {
                     if (this.list_ent.searchNodeAt(j + 1).atr_lynks[k] != null) {
-                        if (ownerEnt.atr_lynks[i].id == this.list_ent.searchNodeAt(j + 1).atr_lynks[k].id && ownerEnt.atr_lynks[i].id == idAtr)
+                        if (ownerEnt.atr_lynks[i].id == this.list_ent.searchNodeAt(j + 1).atr_lynks[k].id && ownerEnt.atr_lynks[i].mig_id == idAtr)
                             this.list_ent.searchNodeAt(j + 1).atr_lynks[k] = null;
                     }
                 }
@@ -203,7 +213,7 @@ Repository.prototype.Delete_Attribute = function (idAtr) {
     for (i = 0; i < ownerEnt.atr_lynks.length; i++) {
 
         if (ownerEnt.atr_lynks[i] != null) {
-            if (ownerEnt.atr_lynks[i].id == idAtr)
+            if (ownerEnt.atr_lynks[i].id == idAtr || ownerEnt.atr_lynks[i].mig_id ==idAtr)
                 ownerEnt.atr_lynks[i] = null;
         }
     }
@@ -216,8 +226,8 @@ Repository.prototype.Delete_Attribute = function (idAtr) {
 
 };
 /*Äîáàâëåíèå îòíîøåíèÿ*/
-Repository.prototype.Add_Relationship = function (name, parentId, childId, type, phrase, conn) {
-    this.list_rel.add(new Relationship(name, parentId, childId, type, phrase, conn));
+Repository.prototype.Add_Relationship = function (desription, parentId, childId, type, phrase, conn) {
+    this.list_rel.add(new Relationship(desription, parentId, childId, type, phrase, conn));
 };
 /*Äîáàâëåíèå îòíîøåíèÿ óðîâíÿ KB*/
 /*
@@ -285,15 +295,24 @@ Repository.prototype.Delete_Relationship = function (idRel) {
     if (objChildEnt.atr_lynks.length !== 0) {
         for (var i = 0; i < objChildEnt.atr_lynks.length; i++) {
             if(objChildEnt.atr_lynks[i]!=null){
-            if (objChildEnt.atr_lynks[i]._owner_id === relationToDelete._parent_id)
-                objChildEnt.atr_lynks[i] = null;
+                if (objChildEnt.atr_lynks[i]._owner_id == relationToDelete._parent_id){
+                    this.Delete_Attribute(objChildEnt.atr_lynks[i].id);
+                    objChildEnt.atr_lynks[i] = null;
+                }
         }
         }
     }
     this.list_rel.remove(idRel);
 };
 /*Ðåäàêòèðîâàíèå îòíîøåíèÿ*/
-Repository.prototype.Edit_Relationship = function (idRel, newDescription, newPhrase) {
+Repository.prototype.Edit_Relationship = function (idRel, newDescription, newPhrase, newType=null) {
+    if(type!=null)
+    {
+        var pId = this.list_rel.searchEntityById(idRel)._parent_id;
+        var cldId = this.list_rel.searchEntityById(idRel)._child_id;
+        this.Delete_Relationship(idRel);
+        createConnection(pId,cldId,newPhrase,newType,newDescription);
+    }
     this.list_rel.searchEntityById(idRel).description = newDescription;
     this.list_rel.searchEntityById(idRel).phrase = newPhrase;
 };

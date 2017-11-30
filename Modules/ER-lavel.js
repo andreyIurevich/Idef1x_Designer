@@ -242,6 +242,11 @@ function clearElements(ModalWindow){
                     $("#DeleteAttribute").prop("disabled", true);
                     $("#SaveAttribute").prop("disabled", true);
                 break;
+            case "OpenProject":
+                    makeProjectsList();
+                    $('#OpenProjectButton').prop("disabled", true);
+                    $('#DeleteProjectButton').prop("disabled", true);
+                break;
           }
           $('.badge').text(''); $('.badge').text(_Repository.list_ent._length);
 }
@@ -302,5 +307,13 @@ function getConnectionNames(list){
             }
             list.appendTo(entity_list);
             */
+}
+
+function disableOpenProjectButton(){
+    if ($('#ProjectsList').children().size() == 0)
+    {
+      $('#OpenProjectButton').prop("disabled", true);
+      $('#DeleteProjectButton').prop("disabled", true);
+    }
 }
 

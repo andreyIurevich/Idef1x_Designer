@@ -24,9 +24,10 @@
             <script type="text/javascript" src="Modules/Initialize_Repository.js"></script>
             <script src="Modules/CreateEntity.js"></script>
             <script src="Modules/CreateConnection.js"></script>
+            <script src="Modules/SaveModel.js"></script>
             <script src="Modules/ER-lavel.js"></script>
             <script src="Modules/KB-lavel.js"></script>
-            <script src="Modules/SaveModel.js"></script>
+            
             
 
             <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -119,7 +120,7 @@
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">Проект <b class="caret"></b></a>
                     <ul role="menu" class="dropdown-menu">
                         <button class="btn btn-link" data-toggle="modal" data-target="#OpenProject"
-                            onclick="makeProjectsList();">
+                            onclick="clearElements('OpenProject');">
                                 Открыть
                         </button>
                         <button class="btn btn-link" data-toggle="modal" data-target="#SaveProject">
@@ -350,9 +351,9 @@
                                         $('#KeyName').val('');
                                         $('#KeyDescription').val('');
                                         $('#KeyName').focus();
-                                        $('#SaveAttribute').prop('disabled', false);
-                                        console.log('New key value ',$('#keys option:selected').val());
-                                    ">Добавить</button>
+                                        $('#SaveAttribute').prop('disabled', false);">
+                                    Добавить
+                                </button>
                                 <button type="button" class="btn btn-default btn-xs" id="DeleteAttribute"
                                     onclick="deleteAttribute();">Удалить</button>
                             </div>
@@ -631,15 +632,25 @@
                     <h4>Локальное хранилище</h4>
                     <select id="ProjectsList" size="5" style="width: 100%; margin-bottom: 10px;">
                     </select>
-                    <button type="button" class="btn btn-primary" 
-                        onclick="$('#OpenProject').modal('hide'); loadFromLocalStorage();">
-                        <span class="glyphicon glyphicon-open" aria-hidden="true"></span>
-                        Открыть
-                    </button>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-primary btn-sm" id="OpenProjectButton"
+                            onclick="$('#OpenProject').modal('hide'); 
+                            loadFromLocalStorage($('#ProjectsList').val());">
+                            <span class="glyphicon glyphicon-open" aria-hidden="true"></span>
+                            Открыть
+                        </button>
+                        <button type="button" class="btn btn-default btn-sm" id="DeleteProjectButton"
+                                onclick="
+                                deleteFromLocalStorage($('#ProjectsList').val());
+                                disableOpenProjectButton();
+                                "> 
+                        Удалить
+                        </button>
+                    </div>
                     <hr>
                     <h4>Жесткий диск</h4>
                     <p>Открыть файл с проектом на жестком диске.</p>
-                    <button type="button" class="btn btn-primary"
+                    <button type="button" class="btn btn-primary btn-sm"
                         onclick="$('#OpenProject').modal('hide'); loadFromFile();">
                         <span class="glyphicon glyphicon-open" aria-hidden="true"></span>
                         Открыть

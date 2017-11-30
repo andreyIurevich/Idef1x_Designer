@@ -86,13 +86,19 @@ function loadFromFile(){
     }); 
 }
 
-function loadFromLocalStorage(){
-    var open_project = $("#ProjectsList").val();
-    if (open_project == undefined){
+function loadFromLocalStorage(ProjectName){
+    if (ProjectName == undefined){
         $("#ProjectsList").focus();
     }else{
-        var load_pr = localStorage.getItem(open_project);
+        var load_pr = localStorage.getItem(ProjectName);
         createModel(load_pr);
+    }
+}
+
+function deleteFromLocalStorage(ProjectName){
+    if (ProjectName != undefined){
+        localStorage.removeItem(ProjectName);
+        makeProjectsList();
     }
 }
 
@@ -114,6 +120,14 @@ function makeProjectsList(){
             $('<option></option>', { value: key, text: key }).appendTo(list);
         } 
     }
+
+    $('#ProjectsList').change(function(){
+        if ($(this).children().size() != 0)
+        {
+            $('#OpenProjectButton').prop("disabled", false);
+            $('#DeleteProjectButton').prop("disabled", false);
+        }
+    });
 }
 
 function createModel(flowChartJson){

@@ -113,7 +113,7 @@
                 <a data-toggle="dropdown" class="dropdown-toggle" href="#">Проект <b class="caret"></b></a>
                 <ul role="menu" class="dropdown-menu">
                   <button class="btn btn-link" data-toggle="modal" data-target="#OpenProject"
-                    onclick="makeProjectsList();">
+                    onclick="clearElements('OpenProject');">
                     Открыть
                   </button>
                   <button class="btn btn-link" data-toggle="modal" data-target="#SaveProject"
@@ -400,35 +400,45 @@
 
     <!--Модальное окно для открытия проекта-->
     <div class="modal fade" id="OpenProject" tabindex="-1" role="dialog">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Открыть проект</h4>
-          </div>
-          <div class="modal-body">
-            <h4>Локальное хранилище</h4>
-            <select id="ProjectsList" size="5" style="width: 100%; margin-bottom: 10px;">
-            </select>
-            <button type="button" class="btn btn-primary" 
-                onclick="$('#OpenProject').modal('hide'); loadFromLocalStorage();">
-              <span class="glyphicon glyphicon-open" aria-hidden="true"></span>
-              Открыть
-            </button>
-            <hr>
-            <h4>Жесткий диск</h4>
-            <p>Открыть файл с проектом на жестком диске.</p>
-            <button type="button" class="btn btn-primary"
-              onclick="$('#OpenProject').modal('hide'); loadFromFile();">
-              <span class="glyphicon glyphicon-open" aria-hidden="true"></span>
-              Открыть
-            </button>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
-          </div>
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Открыть проект</h4>
+                </div>
+                <div class="modal-body">
+                    <h4>Локальное хранилище</h4>
+                    <select id="ProjectsList" size="5" style="width: 100%; margin-bottom: 10px;">
+                    </select>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-primary btn-sm" id="OpenProjectButton"
+                            onclick="$('#OpenProject').modal('hide'); 
+                            loadFromLocalStorage($('#ProjectsList').val());">
+                            <span class="glyphicon glyphicon-open" aria-hidden="true"></span>
+                            Открыть
+                        </button>
+                        <button type="button" class="btn btn-default btn-sm" id="DeleteProjectButton"
+                                onclick="
+                                deleteFromLocalStorage($('#ProjectsList').val());
+                                disableOpenProjectButton();
+                                "> 
+                        Удалить
+                        </button>
+                    </div>
+                    <hr>
+                    <h4>Жесткий диск</h4>
+                    <p>Открыть файл с проектом на жестком диске.</p>
+                    <button type="button" class="btn btn-primary btn-sm"
+                        onclick="$('#OpenProject').modal('hide'); loadFromFile();">
+                        <span class="glyphicon glyphicon-open" aria-hidden="true"></span>
+                        Открыть
+                    </button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
