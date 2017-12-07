@@ -193,6 +193,7 @@ function clearElements(ModalWindow){
                     $('ConDescription').val('');
                     getConnectionNames($('#connection_name'));
                     $('#connection_name').val('');
+                    $('input[name="edt"]:checked').prop('checked', false);
                 break;
             case "myModal":
                     $('#entity_name').val('');
@@ -262,51 +263,21 @@ function getConnectionNames(list){
         }
 
         list.change(function(){
-
           var parent_name =_Repository.list_ent.searchEntityById(
                         _Repository.list_rel.searchEntityById($(this).val())._parent_id).picture_id;
           var child_name = _Repository.list_ent.searchEntityById(
             _Repository.list_rel.searchEntityById($(this).val())._child_id).picture_id;
           var phrase = _Repository.list_rel.searchEntityById($(this).val()).Get_Phrase();
           var rel_description = _Repository.list_rel.searchEntityById($(this).val()).description;
+          var rel_type = _Repository.list_rel.searchEntityById($(this).val()).type;
           
           $('#entity_name_connection5').val(parent_name);
           $('#entity_name_connection6').val(child_name);
           $('#verb_phrase_con').val(phrase);
           $('#ConDescription').val(rel_description);
-
+          $("input[name='optradio'][value='" + rel_type + "']").prop('checked', true);
+          $("input[name='oldRelType']").val(rel_type);
         });
-
-          /*
-            $(entity_list).children('ul').remove();
-          
-            var list = $('<ul></ul>').addClass("dropdown-menu dropdown-menu-right");
-            var list_element;
-            console.log(entity_list);
-
-            for(var i=1; i<=_Repository.list_rel._length; i++){
-                str=_Repository.list_rel.searchNodeAt(i).Get_ID();
-
-                list_element = $('<li></li>').append(
-                    $('<a href="#"></a>').attr('class', i).text(str).click(
-                      function(){
-                        console.log($(this).attr('class'));
-                        var parent_name =_Repository.list_ent.searchEntityById(
-                          _Repository.list_rel.searchNodeAt($(this).attr('class'))._parent_id).picture_id;
-                        var child_name = _Repository.list_ent.searchEntityById(
-                          _Repository.list_rel.searchNodeAt($(this).attr('class'))._child_id).picture_id;
-                        var phrase = _Repository.list_rel.searchNodeAt($(this).attr('class')).Get_Phrase();
-                        var rel_description = _Repository.list_rel.searchNodeAt($(this).attr('class')).description;
-                        $(input).val($(this).text());
-                        $('#entity_name_connection5').val(parent_name);
-                        $('#entity_name_connection6').val(child_name);
-                        $('#verb_phrase_con').val(phrase);
-                        $('#ConDescription').val(rel_description);
-                        console.log(_Repository.list_rel);
-                })).appendTo(list);
-            }
-            list.appendTo(entity_list);
-            */
 }
 
 function disableOpenProjectButton(){

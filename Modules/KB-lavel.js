@@ -62,6 +62,32 @@ function deleteRelationship(){
   }
 }
 
+function saveRelationship(){
+
+  if ($("input[name='oldRelType']").val() != $('input[name=edt]:checked').val())
+  {
+      deleteRelationship();
+      createConnection(
+                        $('#entity_name_connection5').val(),
+                        $('#entity_name_connection6').val(),
+                        $('#verb_phrase_con').val(),
+                        $('input[name=edt]:checked').val(),
+                        $('#ConDescription').val()
+                      );
+  }
+  else
+  {
+    var label = _Repository.list_rel.searchEntityById($('#connection_name').val())
+                            .jsPlumbConn.getOverlay('label' + $('#connection_name').val()); 
+    label.setLabel($('#verb_phrase_con').val());
+
+    _Repository.Edit_Relationship($('#connection_name').val(),
+                                $('#ConDescription').val(), 
+                                $('#verb_phrase_con').val(),
+                                );
+  }
+}
+
 
 function createEntityList(){
     var str, name;

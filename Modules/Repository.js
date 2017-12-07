@@ -306,13 +306,15 @@ Repository.prototype.Delete_Relationship = function (idRel) {
 };
 /*Ðåäàêòèðîâàíèå îòíîøåíèÿ*/
 Repository.prototype.Edit_Relationship = function (idRel, newDescription, newPhrase, newType=null) {
-    if(type!=null)
+    
+    /*if(type!=null && type != this.list_rel.searchEntityById(idRel).type)
     {
         var pId = this.list_rel.searchEntityById(idRel)._parent_id;
-        var cldId = this.list_rel.searchEntityById(idRel)._child_id;
+        var cldId = this.list_rel.searchEntityById(idRel)._child_id;       
         this.Delete_Relationship(idRel);
-        createConnection(pId,cldId,newPhrase,newType,newDescription);
-    }
+        //this.Add_RelationshipKB(pId,cldId,newPhrase,newType,newDescription);
+        return;
+    }*/
     this.list_rel.searchEntityById(idRel).description = newDescription;
     this.list_rel.searchEntityById(idRel).phrase = newPhrase;
 };
