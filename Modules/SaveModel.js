@@ -47,10 +47,10 @@ function modelToJSON(){
             flowChart.nodes = nodes;
             flowChart.connects = connections;
 
-            if ($("input[name='lavel']").val() == "KB")
-            {
+            /*if ($("input[name='lavel']").val() == "KB")
+            {*/
                 flowChart.attributes = attributes;
-            }
+            //}
 
             var flowChartJson = JSON.stringify(flowChart, "", 4);
             console.log(flowChartJson);
@@ -63,10 +63,22 @@ function saveInBrowser(modelInJson){
     localStorage.setItem($('#ProjectName').val(), modelInJson); 
 }
 
+function saveInSession(modelInJson){
+    //Save project to localStorage
+    if ($('.block').size() != 0)
+        sessionStorage.setItem('CurrentProject', modelInJson); 
+}
+
 function saveInFile(modelInJson){
     //Save project in file
     var blob = new Blob([modelInJson], {type: "text/plain;charset=utf-8"});
     saveAs(blob, $('#ProjectName').val() + ".txt");
+}
+
+function loadFromSession(){
+    var load_pr = sessionStorage.getItem('CurrentProject');
+    if (load_pr != null)
+        createModel(load_pr);
 }
 
 function loadFromFile(){
@@ -147,8 +159,8 @@ function createModel(flowChartJson){
         $.each(connections, function( index, elem ) {
             createConnection(elem.source, elem.target, elem.verb_phrase, elem.type, elem.description);
         });
-        
-        if ($("input[name='lavel']").val() == "KB" && flowChart.attributes != null)
+        console.log(flowChart.attributes);
+        if (/*$("input[name='lavel']").val() == "KB" &&*/ flowChart.attributes.length != null)
         {
             var attributes = flowChart.attributes;
             $.each(attributes, function( index, elem ) {

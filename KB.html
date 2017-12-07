@@ -41,6 +41,12 @@
                 
                 $(document).ready(function(){
 
+                    loadFromSession();
+
+                    $(".other").click(function(){
+                        saveInSession(modelToJSON());
+                    });
+
                     $(".save_in_browser").click(function(){
                         if ($('#ProjectName').val() != "")
                             saveInBrowser(modelToJSON());
@@ -77,9 +83,9 @@
         <!-- Список ссылок, расположенных слева -->
             <ul class="nav navbar-nav">
                 <!--Элемент с классом active отображает ссылку подсвеченной -->
-                <li><a href="ER.html">ER</a></li>
+                <li><a href="ER.html" class="other">ER</a></li>
                 <li class="active"><a href="#">KB</a></li>
-                <li><a href="#">FA</a></li>
+                <li><a href="#" class="other">FA</a></li>
             </ul>
             <!-- Список ссылок, расположенный справа -->
             <ul class="nav navbar-nav navbar-right">
